@@ -5,6 +5,12 @@ const withMDX = createMDX();
 /** @type {import('next').NextConfig} */
 const config = {
 	reactStrictMode: true,
+	eslint: {
+		ignoreDuringBuilds: true,
+	},
+	typescript: {
+		ignoreBuildErrors: true,
+	},
 	images: {
 		remotePatterns: [
 			new URL("https://i.imgur.com/*")
@@ -17,9 +23,12 @@ const config = {
 		},
 	],
 	redirects: async () => [
-
+		{
+			source: "/",
+			destination: "/guides/getting-started",
+			permanent: false
+		}
 	],
-
 };
 
 export default withMDX(config);

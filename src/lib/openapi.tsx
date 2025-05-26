@@ -6,7 +6,7 @@ import { Callout } from "fumadocs-ui/components/callout";
 export const openapi = createOpenAPI({
 	proxyUrl: "/api/proxy",
 	generateTypeScriptSchema: false,
-	disablePlayground: true,
+	// disablePlayground: true,
 	renderer: {
 		APIPlayground: (props) => {
 			return (

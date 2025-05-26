@@ -9,12 +9,23 @@ import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
  */
 export const baseOptions: BaseLayoutProps = {
 	nav: {
-		title: (
-			<>
-				VRChat API Documentation
-			</>
-		),
+		title: "VRChat API Documentation"
 	},
-	// see https://fumadocs.dev/docs/ui/navigation/links
-	links: [],
+	githubUrl: "https://github.com/vrchatapi",
+	links: [
+		{
+			text: "SDKs",
+			type: "menu",
+			items: [
+				{
+					text: "Unity SDK",
+					url: "/docs/sdk/unity",
+				}
+			]
+		},
+		{
+			text: "API Reference",
+			url: "/openapi"
+		}
+	],
 };

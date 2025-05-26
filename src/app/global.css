@@ -2,3 +2,11 @@
 @import 'fumadocs-ui/css/neutral.css';
 @import 'fumadocs-ui/css/preset.css';
 @import 'fumadocs-openapi/css/preset.css';
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-exo2)
+}
+
+h1.font-semibold {
+  font-weight: 700;
+}

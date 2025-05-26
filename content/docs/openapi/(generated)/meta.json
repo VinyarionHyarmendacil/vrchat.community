@@ -1,0 +1,10 @@
+{
+	"pages": [
+		"(authentication)",
+		"(worlds)",
+		"(avatars)",
+		"(users)",
+		"...",
+		"(miscellaneous)"
+	]
+}
