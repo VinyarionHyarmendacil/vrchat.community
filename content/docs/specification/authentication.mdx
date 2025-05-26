@@ -1,0 +1,194 @@
+---
+title: Authentication
+full: true
+_openapi:
+  toc:
+    - depth: 2
+      title: Check User Exists
+      url: '#check-user-exists'
+    - depth: 2
+      title: Login and/or Get Current User Info
+      url: '#login-andor-get-current-user-info'
+    - depth: 2
+      title: Disable 2FA
+      url: '#disable-2fa'
+    - depth: 2
+      title: Verify 2FA code
+      url: '#verify-2fa-code'
+    - depth: 2
+      title: Enable time-based 2FA codes
+      url: '#enable-time-based-2fa-codes'
+    - depth: 2
+      title: Cancel pending enabling of time-based 2FA codes
+      url: '#cancel-pending-enabling-of-time-based-2fa-codes'
+    - depth: 2
+      title: Verify Pending 2FA code
+      url: '#verify-pending-2fa-code'
+    - depth: 2
+      title: Get 2FA Recovery codes
+      url: '#get-2fa-recovery-codes'
+    - depth: 2
+      title: Verify 2FA code with Recovery code
+      url: '#verify-2fa-code-with-recovery-code'
+    - depth: 2
+      title: Verify 2FA email code
+      url: '#verify-2fa-email-code'
+    - depth: 2
+      title: Verify Auth Token
+      url: '#verify-auth-token'
+    - depth: 2
+      title: Logout
+      url: '#logout'
+    - depth: 2
+      title: Delete User
+      url: '#delete-user'
+    - depth: 2
+      title: Register User Account
+      url: '#register-user-account'
+    - depth: 2
+      title: Resend Email Confirmation
+      url: '#resend-email-confirmation'
+    - depth: 2
+      title: Confirm Email
+      url: '#confirm-email'
+    - depth: 2
+      title: Verify Login Place
+      url: '#verify-login-place'
+  structuredData:
+    headings:
+      - content: Check User Exists
+        id: check-user-exists
+      - content: Login and/or Get Current User Info
+        id: login-andor-get-current-user-info
+      - content: Disable 2FA
+        id: disable-2fa
+      - content: Verify 2FA code
+        id: verify-2fa-code
+      - content: Enable time-based 2FA codes
+        id: enable-time-based-2fa-codes
+      - content: Cancel pending enabling of time-based 2FA codes
+        id: cancel-pending-enabling-of-time-based-2fa-codes
+      - content: Verify Pending 2FA code
+        id: verify-pending-2fa-code
+      - content: Get 2FA Recovery codes
+        id: get-2fa-recovery-codes
+      - content: Verify 2FA code with Recovery code
+        id: verify-2fa-code-with-recovery-code
+      - content: Verify 2FA email code
+        id: verify-2fa-email-code
+      - content: Verify Auth Token
+        id: verify-auth-token
+      - content: Logout
+        id: logout
+      - content: Delete User
+        id: delete-user
+      - content: Register User Account
+        id: register-user-account
+      - content: Resend Email Confirmation
+        id: resend-email-confirmation
+      - content: Confirm Email
+        id: confirm-email
+      - content: Verify Login Place
+        id: verify-login-place
+    contents:
+      - content: >-
+          Checks if a user by a given `username`, `displayName` or `email`
+          exist. This is used during registration to check if a username has
+          already been taken, during change of displayName to check if a
+          displayName is available, and during change of email to check if the
+          email is already used. In the later two cases the `excludeUserId` is
+          used to exclude oneself, otherwise the result would always be true.
+
+
+          It is **REQUIRED** to include **AT LEAST** `username`, `displayName`
+          **or** `email` query parameter. Although they can be combined - in
+          addition with `excludeUserId` (generally to exclude yourself) - to
+          further fine-tune the search.
+        heading: check-user-exists
+      - content: >-
+          This endpoint does the following two operations:
+            1) Checks if you are already logged in by looking for a valid `auth` cookie. If you are have a valid auth cookie then no additional auth-related actions are taken. If you are **not** logged in then it will log you in with the `Authorization` header and set the `auth` cookie. The `auth` cookie will only be sent once.
+            2) If logged in, this function will also return the CurrentUser object containing detailed information about the currently logged in user.
+
+          The auth string after `Authorization: Basic {string}` is a
+          base64-encoded string of the username and password, both individually
+          url-encoded, and then joined with a colon.
+            
+          > base64(urlencode(username):urlencode(password))
+
+
+          **WARNING: Session Limit:** Each authentication with login credentials
+          counts as a separate session, out of which you have a limited amount.
+          Make sure to save and reuse the `auth` cookie if you are often
+          restarting the program. The provided API libraries automatically save
+          cookies during runtime, but does not persist during restart. While it
+          can be fine to use username/password during development, expect in
+          production to very fast run into the rate-limit and be temporarily
+          blocked from making new sessions until older ones expire. The exact
+          number of simultaneous sessions is unknown/undisclosed.
+        heading: login-andor-get-current-user-info
+      - content: Disables 2FA for the currently logged in account
+        heading: disable-2fa
+      - content: >-
+          Finishes the login sequence with a normal 2FA-generated code for
+          accounts with 2FA-protection enabled.
+        heading: verify-2fa-code
+      - content: Begins the sequence for enabling time-based 2FA.
+        heading: enable-time-based-2fa-codes
+      - content: Cancels the sequence for enabling time-based 2FA.
+        heading: cancel-pending-enabling-of-time-based-2fa-codes
+      - content: Finishes sequence for enabling time-based 2FA.
+        heading: verify-pending-2fa-code
+      - content: >-
+          Gets the OTP (One Time Password) recovery codes for accounts with
+          2FA-protection enabled.
+        heading: get-2fa-recovery-codes
+      - content: >-
+          Finishes the login sequence with an OTP (One Time Password) recovery
+          code for accounts with 2FA-protection enabled.
+        heading: verify-2fa-code-with-recovery-code
+      - content: Finishes the login sequence with an 2FA email code.
+        heading: verify-2fa-email-code
+      - content: Verify whether the currently provided Auth Token is valid.
+        heading: verify-auth-token
+      - content: Invalidates the login session.
+        heading: logout
+      - content: >-
+          Deletes the account with given ID. Normal users only have permission
+          to delete their own account. Account deletion is 14 days from this
+          request, and will be cancelled if you do an authenticated request with
+          the account afterwards.
+
+
+          **VRC+ NOTE:** Despite the 14-days cooldown, any VRC+ subscription
+          will be cancelled **immediately**.
+
+
+          **METHOD NOTE:** Despite this being a Delete action, the method type
+          required is PUT.
+        heading: delete-user
+      - content: >-
+          ~~Register a new user account.~~
+
+
+          **DEPRECATED:** Automated creation of accounts has no legitimate
+          public third-party use case, and would be in violation of ToS §13.2:
+
+          *By using the Platform, you agree not to: i. [...] use the Platform in
+          a manner inconsistent with individual human usage*
+
+          This endpoint is documented in the interest of completeness
+        heading: register-user-account
+      - content: Requests a resend of pending email address confirmation email
+        heading: resend-email-confirmation
+      - content: Confirms the email address for a user
+        heading: confirm-email
+      - content: Verifies a login attempt for a user
+        heading: verify-login-place
+---
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Authentication Docs Here
+
+<APIPage document={"https://vrchatapi.github.io/specification/openapi.yaml"} operations={[{"path":"/auth/exists","method":"get"},{"path":"/auth/user","method":"get"},{"path":"/auth/twofactorauth","method":"delete"},{"path":"/auth/twofactorauth/totp/verify","method":"post"},{"path":"/auth/twofactorauth/totp/pending","method":"post"},{"path":"/auth/twofactorauth/totp/pending","method":"delete"},{"path":"/auth/twofactorauth/totp/pending/verify","method":"post"},{"path":"/auth/user/twofactorauth/otp","method":"get"},{"path":"/auth/twofactorauth/otp/verify","method":"post"},{"path":"/auth/twofactorauth/emailotp/verify","method":"post"},{"path":"/auth","method":"get"},{"path":"/logout","method":"put"},{"path":"/users/{userId}/delete","method":"put"},{"path":"/auth/register","method":"post"},{"path":"/auth/user/resendEmail","method":"post"},{"path":"/auth/confirmEmail","method":"get"},{"path":"/auth/verifyLoginPlace","method":"get"}]} webhooks={[]} hasHead={true} />

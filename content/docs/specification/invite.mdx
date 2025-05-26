@@ -1,0 +1,205 @@
+---
+title: Invite
+full: true
+_openapi:
+  toc:
+    - depth: 2
+      title: Invite User
+      url: '#invite-user'
+    - depth: 2
+      title: Invite User with photo
+      url: '#invite-user-with-photo'
+    - depth: 2
+      title: Invite Myself To Instance
+      url: '#invite-myself-to-instance'
+    - depth: 2
+      title: Request Invite
+      url: '#request-invite'
+    - depth: 2
+      title: Request Invite with photo
+      url: '#request-invite-with-photo'
+    - depth: 2
+      title: Respond Invite
+      url: '#respond-invite'
+    - depth: 2
+      title: Respond Invite with photo
+      url: '#respond-invite-with-photo'
+    - depth: 2
+      title: List Invite Messages
+      url: '#list-invite-messages'
+    - depth: 2
+      title: Get Invite Message
+      url: '#get-invite-message'
+    - depth: 2
+      title: Reset Invite Message
+      url: '#reset-invite-message'
+    - depth: 2
+      title: Update Invite Message
+      url: '#update-invite-message'
+  structuredData:
+    headings:
+      - content: Invite User
+        id: invite-user
+      - content: Invite User with photo
+        id: invite-user-with-photo
+      - content: Invite Myself To Instance
+        id: invite-myself-to-instance
+      - content: Request Invite
+        id: request-invite
+      - content: Request Invite with photo
+        id: request-invite-with-photo
+      - content: Respond Invite
+        id: respond-invite
+      - content: Respond Invite with photo
+        id: respond-invite-with-photo
+      - content: List Invite Messages
+        id: list-invite-messages
+      - content: Get Invite Message
+        id: get-invite-message
+      - content: Reset Invite Message
+        id: reset-invite-message
+      - content: Update Invite Message
+        id: update-invite-message
+    contents:
+      - content: >-
+          Sends an invite to a user. Returns the Notification of type `invite`
+          that was sent.
+        heading: invite-user
+      - content: >-
+          Sends an photo invite to a user. Returns the Notification of type
+          `invite` that was sent.
+        heading: invite-user-with-photo
+      - content: Sends self an invite to an instance
+        heading: invite-myself-to-instance
+      - content: >-
+          Requests an invite from a user. Returns the Notification of type
+          `requestInvite` that was sent.
+        heading: request-invite
+      - content: >-
+          Requests with photo an invite from a user. Returns the Notification of
+          type `requestInvite` that was sent.
+        heading: request-invite-with-photo
+      - content: >-
+          Respond to an invite or invite request without accepting it.
+          `:notificationId` is the ID of the requesting notification.
+
+
+          In case the notification being replied to is an invite, the
+          `responseSlot` refers to a response message from the the `message`
+          collection.
+
+          In case the notification is an invite request, it will refer to one
+          from the `requestResponse` collection instead.
+        heading: respond-invite
+      - content: >-
+          Respond with photo to an invite or invite request without accepting
+          it. `:notificationId` is the ID of the requesting notification.
+
+
+          In case the notification being replied to is an invite, the
+          `responseSlot` refers to a response message from the the `message`
+          collection.
+
+          In case the notification is an invite request, it will refer to one
+          from the `requestResponse` collection instead.'
+        heading: respond-invite-with-photo
+      - content: >-
+          Returns a list of all the users Invite Messages. Admin Credentials are
+          required to view messages of other users!
+
+
+          Message type refers to a different collection of messages, used during
+          different types of responses.
+
+
+          * `message` = Message during a normal invite
+
+          * `response` = Message when replying to a message
+
+          * `request` = Message when requesting an invite
+
+          * `requestResponse` = Message when replying to a request for invite
+        heading: list-invite-messages
+      - content: >-
+          Returns a single Invite Message. This returns the exact same
+          information but less than `getInviteMessages`. Admin Credentials are
+          required to view messages of other users!
+
+
+          Message type refers to a different collection of messages, used during
+          different types of responses.
+
+
+          * `message` = Message during a normal invite
+
+          * `response` = Message when replying to a message
+
+          * `request` = Message when requesting an invite
+
+          * `requestResponse` = Message when replying to a request for invite
+        heading: get-invite-message
+      - content: >-
+          Resets a single Invite Message back to its original message, and then
+          returns a list of all of them. Admin Credentials are required to
+          update messages of other users!
+
+
+          Resetting a message respects the rate-limit, so it is not possible to
+          reset within the 60 minutes countdown.
+
+          Resetting it does however not set the rate-limit to 60 like when
+          editing it.
+
+          It is possible to edit it right after resetting it.
+
+          Trying to edit a message before the cooldown timer expires results in
+          a 429 "Too Fast Error".
+
+
+          Message type refers to a different collection of messages, used during
+          different types of responses.
+
+
+          * `message` = Message during a normal invite
+
+          * `response` = Message when replying to a message
+
+          * `request` = Message when requesting an invite
+
+          * `requestResponse` = Message when replying to a request for invite
+
+
+          The DELETE endpoint does not have/require any request body.
+        heading: reset-invite-message
+      - content: >-
+          Updates a single Invite Message and then returns a list of all of
+          them. Admin Credentials are required to update messages of other
+          users!
+
+
+          Updating a message automatically sets the cooldown timer to 60
+          minutes.
+
+          Trying to edit a message before the cooldown timer expires results in
+          a 429 "Too Fast Error".
+
+
+          Message type refers to a different collection of messages, used during
+          different types of responses.
+
+
+          * `message` = Message during a normal invite
+
+          * `response` = Message when replying to a message
+
+          * `request` = Message when requesting an invite
+
+          * `requestResponse` = Message when replying to a request for invite
+        heading: update-invite-message
+---
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Invite Docs Here
+
+<APIPage document={"https://vrchatapi.github.io/specification/openapi.yaml"} operations={[{"path":"/invite/{userId}","method":"post"},{"path":"/invite/{userId}/photo","method":"post"},{"path":"/invite/myself/to/{worldId}:{instanceId}","method":"post"},{"path":"/requestInvite/{userId}","method":"post"},{"path":"/requestInvite/{userId}/photo","method":"post"},{"path":"/invite/{notificationId}/response","method":"post"},{"path":"/invite/{notificationId}/response/photo","method":"post"},{"path":"/message/{userId}/{messageType}","method":"get"},{"path":"/message/{userId}/{messageType}/{slot}","method":"get"},{"path":"/message/{userId}/{messageType}/{slot}","method":"delete"},{"path":"/message/{userId}/{messageType}/{slot}","method":"put"}]} webhooks={[]} hasHead={true} />

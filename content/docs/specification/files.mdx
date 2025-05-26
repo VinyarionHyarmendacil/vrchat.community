@@ -1,0 +1,165 @@
+---
+title: Files
+full: true
+_openapi:
+  toc:
+    - depth: 2
+      title: List Files
+      url: '#list-files'
+    - depth: 2
+      title: Create File
+      url: '#create-file'
+    - depth: 2
+      title: Show File
+      url: '#show-file'
+    - depth: 2
+      title: Create File Version
+      url: '#create-file-version'
+    - depth: 2
+      title: Delete File
+      url: '#delete-file'
+    - depth: 2
+      title: Download File Version
+      url: '#download-file-version'
+    - depth: 2
+      title: Delete File Version
+      url: '#delete-file-version'
+    - depth: 2
+      title: Finish FileData Upload
+      url: '#finish-filedata-upload'
+    - depth: 2
+      title: Start FileData Upload
+      url: '#start-filedata-upload'
+    - depth: 2
+      title: Check FileData Upload Status
+      url: '#check-filedata-upload-status'
+    - depth: 2
+      title: Get File Version Analysis
+      url: '#get-file-version-analysis'
+    - depth: 2
+      title: Get File Version Analysis Security
+      url: '#get-file-version-analysis-security'
+    - depth: 2
+      title: Get File Version Analysis Standard
+      url: '#get-file-version-analysis-standard'
+    - depth: 2
+      title: Upload gallery image, icon, emoji or sticker
+      url: '#upload-gallery-image-icon-emoji-or-sticker'
+    - depth: 2
+      title: Upload icon
+      url: '#upload-icon'
+    - depth: 2
+      title: Upload gallery image
+      url: '#upload-gallery-image'
+  structuredData:
+    headings:
+      - content: List Files
+        id: list-files
+      - content: Create File
+        id: create-file
+      - content: Show File
+        id: show-file
+      - content: Create File Version
+        id: create-file-version
+      - content: Delete File
+        id: delete-file
+      - content: Download File Version
+        id: download-file-version
+      - content: Delete File Version
+        id: delete-file-version
+      - content: Finish FileData Upload
+        id: finish-filedata-upload
+      - content: Start FileData Upload
+        id: start-filedata-upload
+      - content: Check FileData Upload Status
+        id: check-filedata-upload-status
+      - content: Get File Version Analysis
+        id: get-file-version-analysis
+      - content: Get File Version Analysis Security
+        id: get-file-version-analysis-security
+      - content: Get File Version Analysis Standard
+        id: get-file-version-analysis-standard
+      - content: Upload gallery image, icon, emoji or sticker
+        id: upload-gallery-image-icon-emoji-or-sticker
+      - content: Upload icon
+        id: upload-icon
+      - content: Upload gallery image
+        id: upload-gallery-image
+    contents:
+      - content: Returns a list of files
+        heading: list-files
+      - content: Creates a new File object
+        heading: create-file
+      - content: >-
+          Shows general information about the "File" object. Each File can have
+          several "Version"'s, and each Version can have multiple real files or
+          "Data" blobs.
+        heading: show-file
+      - content: >-
+          Creates a new FileVersion. Once a Version has been created, proceed to
+          the `/file/{fileId}/{versionId}/file/start` endpoint to start a file
+          upload.
+        heading: create-file-version
+      - content: Deletes a File object.
+        heading: delete-file
+      - content: >-
+          Downloads the file with the provided version number.
+
+
+          **Version Note:** Version 0 is always when the file was created. The
+          real data is usually always located in version 1 and up.
+
+
+          **Extension Note:** Files are not guaranteed to have a file
+          extensions. UnityPackage files tends to have it, images through this
+          endpoint do not. You are responsible for appending file extension from
+          the `extension` field when neccesary.
+        heading: download-file-version
+      - content: >-
+          Delete a specific version of a file. You can only delete the latest
+          version.
+        heading: delete-file-version
+      - content: >-
+          Finish an upload of a FileData. This will mark it as "complete". After
+          uploading the `file` for Avatars and Worlds you then have to upload a
+          `signature` file.
+        heading: finish-filedata-upload
+      - content: >-
+          Starts an upload of a specific FilePart. This endpoint will return an
+          AWS URL which you can PUT data to. You need to call this and receive a
+          new AWS API URL for each `partNumber`. Please see AWS's REST
+          documentation on "PUT Object to S3" on how to upload. Once all parts
+          has been uploaded, proceed to `/finish` endpoint.
+
+
+          **Note:** `nextPartNumber` seems like it is always ignored. Despite it
+          returning 0, first partNumber is always 1.
+        heading: start-filedata-upload
+      - content: >-
+          Retrieves the upload status for file upload. Can currently only be
+          accessed when `status` is `waiting`. Trying to access it on a file
+          version already uploaded currently times out.
+        heading: check-filedata-upload-status
+      - content: Get the performance analysis for the uploaded assets of an avatar
+        heading: get-file-version-analysis
+      - content: >-
+          Get the security performance analysis for the uploaded assets of an
+          avatar
+        heading: get-file-version-analysis-security
+      - content: >-
+          Get the standard performance analysis for the uploaded assets of an
+          avatar
+        heading: get-file-version-analysis-standard
+      - content: Upload an image, which can be an icon, gallery image, sticker or emoji
+        heading: upload-gallery-image-icon-emoji-or-sticker
+      - content: Upload an icon
+        heading: upload-icon
+      - content: Upload a gallery image
+        heading: upload-gallery-image
+---
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Files Docs Here
+
+<APIPage document={"https://vrchatapi.github.io/specification/openapi.yaml"} operations={[{"path":"/files","method":"get"},{"path":"/file","method":"post"},{"path":"/file/{fileId}","method":"get"},{"path":"/file/{fileId}","method":"post"},{"path":"/file/{fileId}","method":"delete"},{"path":"/file/{fileId}/{versionId}","method":"get"},{"path":"/file/{fileId}/{versionId}","method":"delete"},{"path":"/file/{fileId}/{versionId}/{fileType}/finish","method":"put"},{"path":"/file/{fileId}/{versionId}/{fileType}/start","method":"put"},{"path":"/file/{fileId}/{versionId}/{fileType}/status","method":"get"},{"path":"/analysis/{fileId}/{versionId}","method":"get"},{"path":"/analysis/{fileId}/{versionId}/security","method":"get"},{"path":"/analysis/{fileId}/{versionId}/standard","method":"get"},{"path":"/file/image","method":"post"},{"path":"/icon","method":"post"},{"path":"/gallery","method":"post"}]} webhooks={[]} hasHead={true} />
