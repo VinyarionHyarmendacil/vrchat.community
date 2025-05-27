@@ -1,0 +1,36 @@
+---
+title: User tags
+---
+
+Tag | Description
+----|------------
+`admin_avatar_access` | User can upload Avatars without needing the necessary trust rank
+`admin_can_grant_licenses` | User can give out licenses to other users
+`admin_canny_access` | User can access Canny without needing the necessary trust rank
+`admin_lock_tags` | User's tags have been locked and cannot be edited by the user
+`admin_lock_level` | User's Trust rank has been locked and can no longer be changed automatically
+`admin_moderator` | User is part of the VRChat Staff team
+`admin_official_thumbnail` | Replaces the users profile picture with the VRChat logo
+`admin_scripting_access` and `system_scripting_access` | User can upload user-made scripts (Deprecated)
+`admin_world_access` | User can upload Worlds without needing the necessary trust rank
+`show_social_rank` | Toggle whether to show the user's real social rank<br/>(Deprecated: This is now a registry key and sent over Photon)
+`show_mod_tag` | Toggle whether to show the [Red](https://user-images.githubusercontent.com/5008081/153017830-bff84210-3868-4ea6-ba52-047932176a56.png) Staff nameplate
+`system_avatar_access` | User can upload and publish Avatars
+`system_early_adopter` | User bought VRC+ in the early period of it's launch, around December 2020
+`system_feedback_access` | User can send Feedback
+`system_probable_troll` | User has been reported multiple times and is (probably) a troll
+`system_supporter` | User has an active VRC+ subscription
+`system_legend` | User is an Experienced player and was active during the Summer of 2018<br/>(Tag removed in 2022-05-05)
+`system_troll` | User is a confirmed troll
+`system_trust_basic` | User is "New User" (blue) Trust rank
+`system_trust_known` | User is "User" (green) Trust rank
+`system_trust_trusted` | User is "Known User" (orange) Trust rank
+`system_trust_veteran` | User is "Trusted User" (purple) Trust rank
+`system_trust_intermediate` | Unknown<br/>(Tag removed in 2022-05-05)
+`system_trust_advanced` | Unknown<br/>(Tag removed in 2022-05-05)
+`system_trust_legend` | User is "Veteran User" (gold color) Trust rank<br/>(Role was removed in Sep 2018. Tag removed in 2022-05-05)
+`system_world_access` | User can upload and publish Worlds
+
+Trust rank tags have an offset of 1 with their name, so `system_trust_trusted` is actually only `Known User` (orange). The arrows in the following picture highlight the offset naming inaccuracy. The naming system is because of legacy reasons. Visistors have no trust rank at all. It is common for people User and above to be missing the tag for New User.
+
+![Trust ranks](https://i.imgur.com/dBoxDVG.png)

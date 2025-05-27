@@ -5,16 +5,17 @@ import {
 	DocsPage,
 	DocsTitle,
 } from "fumadocs-ui/page";
+import type { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
 
 import { source } from "@/lib/source";
 import { getMDXComponents } from "@/mdx-components";
 
-export default async function Page(props: {
+export default async function Page({ params }: {
 	params: Promise<{ slug?: Array<string> }>;
 }) {
-	const parameters = await props.params;
-	const page = source.getPage(parameters.slug);
+	const { slug } = await params;
+	const page = source.getPage(slug);
 	if (!page) notFound();
 
 	const MDXContent = page.data.body;
@@ -41,19 +42,33 @@ export default async function Page(props: {
 	);
 }
 
+// eslint-disable-next-line unicorn/prevent-abbreviations
 export async function generateStaticParams() {
 	return source.generateParams();
 }
 
 export async function generateMetadata(props: {
 	params: Promise<{ slug?: Array<string> }>;
-}) {
+}, _parent: ResolvingMetadata) {
 	const parameters = await props.params;
+	const parent = await _parent;
+
 	const page = source.getPage(parameters.slug);
 	if (!page) notFound();
 
-	return {
+	const metadata: Metadata = {
+		...parent,
 		title: page.data.title,
-		description: page.data.description,
+		openGraph: {
+			...parent.openGraph,
+			title: page.data.title,
+		}
 	};
+
+	if (page.data.description) {
+		metadata.description = page.data.description;
+		metadata.openGraph!.description = page.data.description;
+	}
+
+	return metadata;
 }

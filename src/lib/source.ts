@@ -1,11 +1,12 @@
+import * as simpleIcons from "@icons-pack/react-simple-icons";
 import { loader } from "fumadocs-core/source";
 import { attachFile } from "fumadocs-openapi/server";
 import { icons as lucideIcons } from "lucide-react";
-import * as simpleIcons from "@icons-pack/react-simple-icons";
-import * as icons from "./icons"
 import { createElement } from "react";
 
 import { docs } from "@/.source";
+
+import * as icons from "./icons";
 
 // See https://fumadocs.vercel.app/docs/headless/source-api for more info
 export const source = loader({

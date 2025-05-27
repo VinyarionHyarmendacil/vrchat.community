@@ -1,10 +1,10 @@
 {
 	"pages": [
 		"---Introduction---",
-		"guides/getting-started",
-		"guides/contributing",
-		"...guides",
+		"(guides)/getting-started",
+		"(guides)/contributing",
 		"...(sdks)",
+		"...(guides)",
 		"...openapi"
 	]
 }

@@ -1,3 +1,4 @@
+import { SiDiscord } from "@icons-pack/react-simple-icons";
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
 
 /**
@@ -9,23 +10,29 @@ import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
  */
 export const baseOptions: BaseLayoutProps = {
 	nav: {
-		title: "VRChat API Documentation"
+		title: (
+			<div className="flex flex-col">
+				<h1>VRChat.community</h1>
+				<span className="font-normal text-xs line-clamp-1">API documentation, SDKs, and more</span>
+			</div>
+		),
 	},
 	githubUrl: "https://github.com/vrchatapi",
 	links: [
 		{
 			text: "SDKs",
 			type: "menu",
-			items: [
-				{
-					text: "Unity SDK",
-					url: "/docs/sdk/unity",
-				}
-			]
+			items: []
 		},
 		{
 			text: "API Reference",
 			url: "/openapi"
+		},
+		{
+			icon: <SiDiscord />,
+			text: "Discord",
+			url: "/discord",
+			type: "icon"
 		}
 	],
 };
