@@ -1,13 +1,26 @@
 ---
 title: World tags
-description: A list of all tags that can be applied to worlds, and their meaning. This list is not exhaustive.
+description: A non-exhaustive list of all tags that can be applied to worlds, and their meaning.
 ---
 
+## Author-assigned tags
 Tag | Description
 ----|------------
 `author_tag_*` | Custom tag added by the world author, with the last word being anything; used during searching by tag
 `author_tag_avatar` | World will show up in "Avatar Worlds" row
 `author_tag_game` | World will show up in the "Games" world row
+`content_adult`|
+`content_combat`|
+`content_featured`|
+`content_gore`|
+`content_horror`|
+`content_other`|
+`content_sex`|
+`content_violence`|
+
+## Automatically applied tags
+Tag | Description
+----|------------
 `admin_featured` | World has been manually selected by staff to appear in the "Featured" world category
 `admin_approved` | World has been manually approved by staff
 `admin_avatar_world` | World was manually been selected by staff as avatar world (Deprecated)
@@ -21,9 +34,70 @@ Tag | Description
 `system_created_recently` | World was recently created
 `system_labs` | World has been submitted to Community Labs
 `system_updated_recently` | World has been recently updated and will show up in "Updated Recently" worlds row if also system approved
-`content_sex` | World has been uploaded with "Nudity/Sexuality" warning.
-`content_violence` | World has been uploaded with "Realistic Violence" warning.
-`content_gore` | World has been uploaded with "Blood/Gore" warning.
-`content_other` | World has been uploaded with "Other NSFW" warning.
+`debug_allowed`|
+`system_approved`|
+`system_created_recently`|
+`system_jam_*`|
+`system_labs`|
+`system_monetized_world`|
+`system_positive_fun_to_explore`|
+`system_published_recently`|
+`system_updated_recently`|
 
-Worlds can also have a range of different event-specific tags such as `admin_vket2021` for the Vket row, `admin_muzzfesst` for the MUZZFEST event, or `admin_halloween_2019` for the 2019 Halloween row. These are not listed because it would be impossible to accurately keep such list up-to-date, and each tag is of little use outside of that specific event.
+## Admin-given tags
+Tag | Description
+----|------------
+`admin_AllowInternal_AllowlistedUrlConstructor`|
+`admin_AllowInternal_BypassImageDownloadDelay`|
+`admin_AllowInternal_BypassStringDownloadDelay`|
+`admin_AllowInternal_GetBestInstances`|
+`admin_AllowInternal_OpenMenu`|
+`admin_AllowInternal_OpenURLWithData`|
+`admin_AllowInternal_PedestalPreview`|
+`admin_AllowInternal_PlatformCheck`|
+`admin_AllowInternal_PortalCreator`|
+`admin_AllowInternal_PrideCampaign`|
+`admin_AllowInternal_UrlConstructor`|
+`admin_AllowInternal_UserInterests`|
+`admin_AllowInternal_UserSettings`|
+`admin_allow_master_abdication`|
+`admin_approved`|
+`admin_avatar_world`|
+`admin_community_pjkt_graffiti_grab`|
+`admin_community_spotlight`|
+`admin_exercise_row`|
+`admin_featured_world_udon`|
+`admin_filter_Analytics`|
+`admin_filter_UrlLauncher`|
+`admin_filter_VideoPlayer`|
+`admin_filter_analytics`|
+`admin_game`|
+`admin_internal`|
+`admin_internal_world`|
+`admin_spotlight_drone_exploration`|
+`admin_spotlight_mobile`|
+`admin_spotlight_pc`|
+`admin_spotlight_xplat`|
+
+## Feature tags
+Tag | Description
+----|------------
+`feature_avatar_scaling`|
+`feature_avatar_scaling_disabled`|
+`feature_drones_disabled`|
+`feature_emoji_disabled`|
+`feature_focus_view_disabled`|
+`feature_pedestals_disabled`|
+`feature_prints_disabled`|
+`feature_stickers_disabled`|
+
+## Event tags
+
+Worlds can also have a range of different event-specific tags such as `admin_vrrat_community_takeover` for the Vket row, `admin_muzzfesst` for the MUZZFEST event, or `admin_halloween_2019` for the 2019 Halloween row. These are not listed because it would be impossible to accurately keep such list up-to-date, and each tag is of little use outside of that specific event.
+
+## Notable tags
+
+### `admin_url_consent_furality_somna`
+It was used during the Furality Somna event in 2025 and informs users about Furality's bookmark feature which sent personal information to `api.fynn.ai`. The consent screen is shown before entering the world, and users must agree to continue.
+
+![Furality Somna Consent Screen](./furality-somna-consent-screen.png)
