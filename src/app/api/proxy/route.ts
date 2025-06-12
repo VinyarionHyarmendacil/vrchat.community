@@ -8,6 +8,7 @@ export const {
 	PATCH,
 	DELETE
 } = openapi.createProxy({
+	allowedOrigins: ["https://api.vrchat.cloud"],
 	overrides: {
 		request: (request) => {
 			request.headers.set("user-agent", "vrchat.community/1 https://github.com/vrchatapi/vrchat.community");
