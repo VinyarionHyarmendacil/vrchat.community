@@ -18,8 +18,8 @@ const exo2 = Exo_2({
 
 export const metadata: Metadata = {
 	title: {
-		template: "%s • VRChat.community",
-		default: "VRChat.community",
+		template: "%s • VRChat API documentation, SDKs, and more for VRChat.",
+		default: "VRChat.community - API documentation, SDKs, and more for VRChat.",
 	},
 	applicationName: "VRChat.community",
 	description: "API documentation, SDKs, and more for VRChat.",
