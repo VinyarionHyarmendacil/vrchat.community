@@ -2,6 +2,7 @@
 @import 'fumadocs-ui/css/neutral.css';
 @import 'fumadocs-ui/css/preset.css';
 @import 'fumadocs-openapi/css/preset.css';
+@import 'fumadocs-twoslash/twoslash.css';
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-exo2)
@@ -9,4 +10,8 @@ h1, h2, h3, h4, h5, h6 {
 
 h1.font-semibold {
   font-weight: 700;
+}
+
+* {
+  tab-size: 2;
 }

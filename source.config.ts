@@ -1,15 +1,20 @@
+import { rehypeCodeDefaultOptions } from "fumadocs-core/mdx-plugins";
 import {
 	defineConfig,
 	defineDocs,
 	frontmatterSchema,
 	metaSchema,
 } from "fumadocs-mdx/config";
+import { transformerTwoslash } from "fumadocs-twoslash";
+import { createFileSystemTypesCache } from "fumadocs-twoslash/cache-fs";
+import z from "zod";
 
-// You can customise Zod schemas for frontmatter and `meta.json` here
-// see https://fumadocs.vercel.app/docs/mdx/collections#define-docs
+// eslint-disable-next-line unicorn/prevent-abbreviations
 export const docs = defineDocs({
 	docs: {
-		schema: frontmatterSchema,
+		schema: frontmatterSchema.and(z.object({
+			fullTitle: z.string().optional(),
+		})),
 	},
 	meta: {
 		schema: metaSchema,
@@ -18,6 +23,17 @@ export const docs = defineDocs({
 
 export default defineConfig({
 	mdxOptions: {
-		// MDX options
+		rehypeCodeOptions: {
+			themes: {
+				light: "github-light",
+				dark: "github-dark",
+			},
+			transformers: [
+				...(rehypeCodeDefaultOptions.transformers ?? []),
+				transformerTwoslash({
+					typesCache: createFileSystemTypesCache(),
+				}),
+			],
+		},
 	},
 });

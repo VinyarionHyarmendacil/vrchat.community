@@ -28,7 +28,7 @@ export default async function Page({ params }: {
 			full={page.data.full}
 			toc={page.data.toc}
 		>
-			<DocsTitle>{page.data.title}</DocsTitle>
+			<DocsTitle>{page.data.fullTitle || page.data.title}</DocsTitle>
 			<DocsDescription>{page.data.description}</DocsDescription>
 			<DocsBody>
 				<MDXContent
@@ -58,10 +58,11 @@ export async function generateMetadata(props: {
 
 	const metadata: Metadata = {
 		...parent,
-		title: page.data.title,
+		title: page.data.fullTitle || page.data.title,
+		// @ts-expect-error: Type 'null' is not assignable to type 'string | URL | undefined'.
 		openGraph: {
 			...parent.openGraph,
-			title: page.data.title,
+			title: page.data.fullTitle || page.data.title,
 		}
 	};
 
