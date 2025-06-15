@@ -1,0 +1,37 @@
+---
+title: Frequently Asked Questions
+description: Common questions and answers about the VRChat API
+icon: Info
+---
+
+## What should I do if I think I've found a bug in any of the libraries?
+If the issue pertains to an endpoint that has been changed in any way, such as incorrect types or a missing endpoint, please create an issue on the [specification repository](https://github.com/vrchatapi/specification/issues/new).
+
+For language-specific issues, kindly create an issue on the relevant SDK repository. However, it's worth noting that libraries are generated from the specification, and therefore **most issues need to be resolved in the specification itself**.
+
+## I found an exploit or vulnerability!
+If the exploit is in VRChat's scope, and not handled by us, please adhere to their responsible disclosure policy and **do not discuss it in public channels** or forums.
+
+Report it on VRChat's [disclosure form](https://help.vrchat.com/hc/en-us/requests/new?ticket_form_id=1500001130621) page.
+If the exploit pertains to SDKs, or libraries built by the community, you can report it in the [VRChat Community Discord](/discord).
+
+It's also recommended to include additional details such as a proof-of-concept, documentation, background, attack scenarios, and potential mitigations. We encourage the use of standard disclosure procedures.
+
+The following is a copy of [VRChat's responsible disclosure policy](https://discord.com/channels/189511567539306508/368935109426020374/1121127082588639483) as of June 14th, 2025, it may change at any time, and you should always refer to the original text for the most up-to-date information.
+
+
+> Video, screenshots, chat logs, hearsay or gossip, etc alone are not helpful and do not constitute an exploit disclosure.
+>
+> **Bans are not issued for exploit reports and research**, assuming that:
+> * the exploit has not been used by you in a harmful manner
+> * all research was helpful and conducted in good faith
+> * you are respecting our Terms of Service
+
+## I'm getting rate limited, what does this mean? ``429 Too many requests``
+You are making requests too quickly.
+
+**Do not submit repeated, un-metered requests.**
+
+* Cache data when appropriate, especially for data that doesn't change often.
+* Handle standard HTTP error codes appropriately. If you get a 429, do not keep knocking, or the door will knock back.
+* Rate limit and implement some type of back-off for handling errors.

@@ -2,6 +2,7 @@
 	"pages": [
 		"---Introduction---",
 		"(guides)/getting-started",
+		"(guides)/faq",
 		"(guides)/contributing",
 		"...(sdks)",
 		"...(guides)",
