@@ -26,7 +26,11 @@ const redirects = {
 /** @type {import('next').NextConfig} */
 const config = {
 	reactStrictMode: true,
-	serverExternalPackages: ["typescript", "twoslash"],
+	serverExternalPackages: [
+		"typescript",
+		"twoslash",
+		"oxc-transform"
+	],
 	eslint: {
 		ignoreDuringBuilds: true,
 	},

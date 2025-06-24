@@ -24,7 +24,9 @@ export const metadata: Metadata = {
 	applicationName: "VRChat.community",
 	description: "API documentation, SDKs, and more for VRChat.",
 	openGraph: {
+		type: "website",
 		siteName: "VRChat.community • API documentation, SDKs, and more",
+
 	}
 };
 
