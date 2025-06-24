@@ -1,8 +1,6 @@
 import { rehypeCodeDefaultOptions } from "fumadocs-core/mdx-plugins";
 import type { RemarkInstallOptions } from "fumadocs-docgen";
 import { remarkInstall } from "fumadocs-docgen";
-import type { TypeScriptToJavaScriptOptions } from "fumadocs-docgen/remark-ts2js";
-import { remarkTypeScriptToJavaScript } from "fumadocs-docgen/remark-ts2js";
 import {
 	defineConfig,
 
@@ -30,9 +28,9 @@ export default defineConfig({
 	mdxOptions: {
 		remarkPlugins: [
 			[remarkInstall, { persist: { id: "remark-install" } } satisfies RemarkInstallOptions],
-			[remarkTypeScriptToJavaScript, { persist: { id: "ts2js" } } satisfies TypeScriptToJavaScriptOptions],
 		],
 		rehypeCodeOptions: {
+			langs: ["ts", "js"],
 			themes: {
 				light: "github-light",
 				dark: "github-dark",

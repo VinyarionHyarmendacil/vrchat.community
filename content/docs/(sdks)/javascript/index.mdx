@@ -37,6 +37,81 @@ const vrchat = new VRChat({
 ### Authentication
 To interact with the VRChat API, you need to authenticate your application.
 
+#### Automatic (recommended)
+```ts twoslash
+import { VRChat } from "vrchat";
+
+// @noErrors
+const vrchat = new VRChat({
+	application: { /* ... */ },
+// [!code ++:14]
+	authentication: {
+		credentials: {
+			username: "",
+			password: "",
+			twoFactorCode: async () => "",
+			/**
+			 * Or, automatically generate a code from a secret.
+			 * Useful for service accounts & automated workflows.
+			 *
+			 * If this is a user-initiated login, don't use this.
+			 */
+			// totpSecret: "",
+		}
+	}
+});
+
+const { data: user } = await vrchat.getCurrentUser({ throwOnError: true });
+console.log(`Logged in as ${data.displayName}.`);
+```
+
+#### Optimistic
+By default, when given credentials, the SDK will immediately attempt to log in using the provided credentials. You can change this behavior by setting `authentication.optimistic` to `false`.
+
+If set to `true` (**the default**), the client will attempt to authenticate immediately after being created, otherwise will only re-authenticate on request failure (e.g. 401 Unauthorized).
+
+```ts twoslash
+import { VRChat } from "vrchat";
+
+// @noErrors
+const vrchat = new VRChat({
+	application: { /* ... */ },
+	authentication: {
+		// [!code ++]
+		optimistic: false,
+		credentials: { /* ...*/ }
+	}
+});
+```
+
+#### On-demand (lazy authentication)
+If you don't have the credentials available at the time of creating the `VRChat` instance, you can lazily re-authenticate when needed.
+This is useful for scenarios where you want to handle authentication errors gracefully, such as prompting the user for their credentials when needed.
+```ts twoslash
+import { VRChat } from "vrchat";
+
+// @noErrors
+const vrchat = new VRChat({
+	application: { /* ... */ },
+// [!code ++:14]
+	authentication: {
+		// Use a function to lazily provide credentials when needed.
+		// Will be called when re-authentication is required.
+		credentials: async () => ({
+			username: "",
+			password: "",
+			twoFactorCode: "",
+		})
+	}
+});
+
+const { data: user } = await vrchat.getCurrentUser({ throwOnError: true });
+console.log(`Logged in as ${data.displayName}.`);
+```
+
+
+#### Manually (using `login(...)`)
+
 ```ts twoslash
 // @noErrors
 import { VRChat, VRChatError } from "vrchat";
@@ -57,10 +132,6 @@ const { data: user } = await vrchat
 		return vrchat.login({
 			username,
 			password,
-			/**
-			 * This function will be called when two-factor authentication is required.
-			 * Accepts any code, such as from an authenticator app or a recovery code.
-			 */
 			twoFactorCode: async () => {
 				const { code } = await prompts({
 					name: "code",
@@ -70,13 +141,6 @@ const { data: user } = await vrchat
 
 				return code;
 			},
-			/**
-			 * Or, automatically generate a code from a secret.
-			 * Useful for service accounts & automated workflows.
-			 *
-			 * If this is a user-initiated login, don't use this.
-			 */
-			// totpSecret: "",
 			throwOnError: true,
 		});
 	});
