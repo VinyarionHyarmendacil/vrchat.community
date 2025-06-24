@@ -43,13 +43,15 @@ import { VRChat } from "vrchat";
 
 // @noErrors
 const vrchat = new VRChat({
-	application: { /* ... */ },
-// [!code ++:14]
+	// ...
+	// [!code ++:16]
 	authentication: {
 		credentials: {
 			username: "",
 			password: "",
-			twoFactorCode: async () => "",
+			twoFactorCode: "",
+			/* Or, ask for the two-factor code interactively. */
+			// twoFactorCode: () => "",
 			/**
 			 * Or, automatically generate a code from a secret.
 			 * Useful for service accounts & automated workflows.
@@ -75,28 +77,28 @@ import { VRChat } from "vrchat";
 
 // @noErrors
 const vrchat = new VRChat({
-	application: { /* ... */ },
+	// ...
 	authentication: {
 		// [!code ++]
 		optimistic: false,
-		credentials: { /* ...*/ }
+		// ...
 	}
 });
 ```
 
 #### On-demand (lazy authentication)
-If you don't have the credentials available at the time of creating the `VRChat` instance, you can lazily re-authenticate when needed.
-This is useful for scenarios where you want to handle authentication errors gracefully, such as prompting the user for their credentials when needed.
+If you don't have the credentials available at the time of creating the `VRChat` instance, you can lazily re-authenticate when needed. Use a function to provide credentials only when required (e.g., after an expired session):
+
 ```ts twoslash
 import { VRChat } from "vrchat";
 
 // @noErrors
 const vrchat = new VRChat({
 	application: { /* ... */ },
-// [!code ++:14]
 	authentication: {
 		// Use a function to lazily provide credentials when needed.
 		// Will be called when re-authentication is required.
+		// [!code ++:4]
 		credentials: async () => ({
 			username: "",
 			password: "",
@@ -109,8 +111,8 @@ const { data: user } = await vrchat.getCurrentUser({ throwOnError: true });
 console.log(`Logged in as ${data.displayName}.`);
 ```
 
-
 #### Manually (using `login(...)`)
+If you prefer to handle authentication manually, you can use the `login(...)` method. This is useful if you want to handle errors or two-factor authentication in a custom way.
 
 ```ts twoslash
 // @noErrors
