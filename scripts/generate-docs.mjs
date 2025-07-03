@@ -10,7 +10,7 @@ function kebabCase(value) {
 
 void generateFiles({
 	// the OpenAPI schema
-	input: ["https://raw.githubusercontent.com/vrchatapi/specification/refs/heads/gh-pages/openapi.yaml"],
+	input: ["https://vrchat.community/openapi.yaml"],
 	output: "./content/docs/openapi/(generated)",
 	// per: "operation",
 	// groupBy: "tag",
