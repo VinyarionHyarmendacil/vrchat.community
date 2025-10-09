@@ -20,9 +20,8 @@ export const baseOptions: BaseLayoutProps = {
 	githubUrl: "https://github.com/vrchatapi",
 	links: [
 		{
-			text: "SDKs",
-			type: "menu",
-			items: []
+			text: "VRC Metrics",
+			url: "https://metrics.vrchat.community",
 		},
 		{
 			text: "API Reference",
