@@ -1,0 +1,9 @@
+{
+	"icon": "Users",
+	"defaultOpen": true,
+	"pages": [
+		"search-users",
+		"get-user",
+		"..."
+	]
+}

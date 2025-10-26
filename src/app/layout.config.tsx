@@ -1,5 +1,7 @@
-import { SiDiscord } from "@icons-pack/react-simple-icons";
+import { SiDiscord, SiTypescript } from "@icons-pack/react-simple-icons";
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
+
+import { sdks } from "@/sdks";
 
 /**
  * Shared layout configurations
@@ -22,11 +24,15 @@ export const baseOptions: BaseLayoutProps = {
 		{
 			text: "SDKs",
 			type: "menu",
-			items: []
+			items: sdks.map(({ name, documentation, icon }) => ({
+				text: name,
+				url: documentation,
+				icon,
+			}))
 		},
 		{
 			text: "API Reference",
-			url: "/openapi"
+			url: "/reference/get-current-user"
 		},
 		{
 			icon: <SiDiscord />,

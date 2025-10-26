@@ -14,8 +14,11 @@ import { getMDXComponents } from "@/mdx-components";
 export default async function Page({ params }: {
 	params: Promise<{ slug?: Array<string> }>;
 }) {
-	const { slug } = await params;
+	let { slug } = await params;
+	if (slug?.[0] === "docs") slug = slug.slice(1);
+
 	const page = source.getPage(slug);
+
 	if (!page) notFound();
 
 	const MDXContent = page.data.body;
@@ -26,10 +29,9 @@ export default async function Page({ params }: {
 				style: "clerk",
 			}}
 			full={page.data.full}
-			toc={page.data.toc}
+			toc={page.data._openapi?.toc || page.data.toc}
 		>
 			<DocsTitle>{page.data.fullTitle || page.data.title}</DocsTitle>
-			<DocsDescription>{page.data.description}</DocsDescription>
 			<DocsBody>
 				<MDXContent
 					components={getMDXComponents({
@@ -50,10 +52,12 @@ export async function generateStaticParams() {
 export async function generateMetadata(props: {
 	params: Promise<{ slug?: Array<string> }>;
 }, _parent: ResolvingMetadata) {
-	const parameters = await props.params;
+	let { slug } = await props.params;
+	if (slug?.[0] === "docs") slug = slug.slice(1);
+
 	const parent = await _parent;
 
-	const page = source.getPage(parameters.slug);
+	const page = source.getPage(slug);
 	if (!page) notFound();
 
 	const metadata: Metadata = {

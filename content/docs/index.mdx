@@ -1,0 +1,82 @@
+---
+title: VRChat.community
+icon: BookMarked
+description: A community-driven project providing VRChat API documentation, SDKs, and developer resources.
+---
+
+import { Cards, Card } from 'fumadocs-ui/components/card';
+import { GithubInfo } from 'fumadocs-ui/components/github-info';
+
+import { Info, Rss, Book, Heart } from "lucide-react";
+import { SiDiscord } from "@icons-pack/react-simple-icons";
+import { sdks } from '@/sdks';
+
+**VRChat.community** is a comprehensive, community-driven project that provides documentation, tools, and resources for developers working with the VRChat API. This project fills the gap left by VRChat's lack of official API documentation and support.
+
+<Callout type="warn">
+  **VRChat's API is not officially supported or documented by VRChat.** This documentation project is maintained on a best-effort basis by the community and attempts to smooth over API breakage by quickly updating when endpoints change.
+  
+  Use responsibly and be aware that endpoints may still break without notice. Abuse of the API may result in account termination. For their official stance, refer to [VRChat's Creator Guidelines](https://hello.vrchat.com/creator-guidelines).
+</Callout>
+
+## Resources
+
+### Communities
+<Cards>
+  <Card
+    icon={<SiDiscord />}
+    title="Discord"
+    description="Join the VRChat.community server to discuss development, ask questions, and get help from the community."
+    href="/discord"
+  />
+  <Card
+    icon={<Heart />}
+    title="VRChat Group"
+    description="Join the VRChat group for events & hangouts with like-minded creators."
+    href="https://vrc.group/VRCM.1319"
+  />
+</Cards>
+
+### Documentation
+
+<Cards>
+  <Card
+    icon={<Book />}
+    title="API Reference"
+    description="Complete documentation of all VRChat API endpoints with examples and schemas."
+    href="/reference"
+  />
+  <Card
+    icon={<Rss/>}
+    title="WebSocket API"
+    description="Real-time event streaming documentation for VRChat's pipeline system."
+    href="/websocket"
+  />
+  <Card
+    icon={<Info />}
+    title="FAQ"
+    description="Frequently asked questions and common issues with solutions."
+    href="/faq"
+  />
+</Cards>
+
+### SDKs & Libraries
+
+Official SDKs are available for multiple programming languages:
+
+<Cards>
+{sdks.map(({ name, icon, repository, documentation }) => (
+  <Card
+    icon={icon}
+    key={name}
+    title={name}
+    href={documentation}
+  />
+))}
+</Cards>
+
+### Contributing
+This project is open-source and is always looking for contributors. Whether it's fixing
+documentation errors, adding new endpoints, or improving SDKs, your help is appreciated!
+
+Learn how to contribute by visiting our [contributing guide](/contributing).

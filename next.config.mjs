@@ -3,13 +3,19 @@ import { createMDX } from "fumadocs-mdx/next";
 const withMDX = createMDX();
 
 const redirects = {
-	"/docs/api": "/openapi",
+	"/docs/api": "/reference",
 	"/docs/:path*": "/",
+
+	"/openapi/:operation": "/reference/:operation",
+	"/openapi/:operation/:path*": "/reference/:operation#:path*",
+
+	"/contributing/openapi": "/contributing",
+	"/reference": "/reference/get-current-user",
 
 	"/tutorials/getting-started": "/getting-started",
 	"/tutorials/instances": "/instances",
 	"/tutorials/tags": "/tags",
-	"/tutorials/contribute-api": "/contributing/openapi",
+	"/tutorials/contribute-api": "/contributing",
 	"/tutorials/contribute-website": "/contributing",
 	"/tutorials/websocket": "/websocket",
 	"/tutorials/:path*": "/",
@@ -19,7 +25,9 @@ const redirects = {
 
 	"/specification/openapi.yaml": "/openapi.yaml",
 
-	"/": "/getting-started",
+	// "/": "/getting-started",
+	"/getting-started": "/",
+
 	"/discord": "https://discord.gg/qjZE9C9fkB",
 };
 
