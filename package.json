@@ -4,7 +4,9 @@
 	"private": true,
 	"scripts": {
 		"build": "rm ./content/docs/openapi/\\(generated\\)/**/*.mdx -rf && node scripts/generate-docs.mjs && next build",
+		"build-win": "rmdir /s /q .\\content\\docs\\openapi\\(generated) 2>nul & node scripts/generate-docs.mjs && next build",
 		"dev": "rm ./content/docs/openapi/\\(generated\\)/**/*.mdx -rf && node scripts/generate-docs.mjs && next dev --turbo",
+		"dev-win": "rmdir /s /q .\\content\\docs\\openapi\\(generated) 2>nul & node scripts/generate-docs.mjs && next dev --turbo",
 		"start": "next start",
 		"postinstall": "fumadocs-mdx"
 	},

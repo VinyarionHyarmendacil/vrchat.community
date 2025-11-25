@@ -1,0 +1,284 @@
+---
+title: .NET
+fullTitle: VRChat API Library for .NET
+icon: Dotnet
+description: A .NET client to interact with the unofficial VRChat API. Supports all REST calls specified in the VRChat API specification.
+---
+
+import { GithubInfo } from 'fumadocs-ui/components/github-info';
+
+A .NET client to interact with the unofficial VRChat API. Supports all REST calls specified in https://github.com/vrchatapi/specification.
+
+<GithubInfo className="not-prose" owner="vrchatapi" repo="vrchatapi-csharp" />
+
+## Disclaimer
+
+This is the official response of the VRChat Team (from Tupper more specifically) on the usage of the VRChat API.
+
+<Callout type="warn" title="Unofficial API">
+Use of the API using applications other than the approved methods (website, VRChat application) are not officially supported. You may use the API for your own application, but keep these guidelines in mind:
+
+- We do not provide documentation or support for the API.
+- Do not make queries to the API more than once per 60 seconds.
+- Abuse of the API may result in account termination.
+- Access to API endpoints may break at any given time, with no warning.
+</Callout>
+
+As stated, this documentation was not created with the help of the official VRChat team. Therefore this documentation is not an official documentation of the VRChat API and may not be always up to date with the latest versions. If you find that a page or endpoint is not longer valid please create an issue and tell us so we can fix it.
+
+## Installation
+
+Install with NuGet:
+
+```package-install
+dotnet add package VRChat.API
+```
+
+### Dependency Injection Package
+
+If you're working with Dependency Injection like ASP.NET Core or Discord.Net, make sure to also install the DI package:
+
+```package-install
+dotnet add package VRChat.API.Extensions.Hosting
+```
+
+## Getting Started
+
+The following example code authenticates you with the API and logs you in.
+
+```cs
+using System;
+using VRChat.API.Client;
+
+// WithApplication or WithUserAgent is required or VRChat will reject your requests
+IVRChat vrchat = new VRChatClientBuilder() // More options available
+    .WithUsername("username")
+    .WithPassword("password")
+    .WithTwoFactorSecret("twoFactorSecret") 
+    .WithApplication("APP_NAME", "1.0.0", "CONTACT_EMAIL")
+    .Build();
+
+// Recommended to set up 2FA on your account for seamless login
+// There is also IVRChat.TryLoginAsync()
+var user = await vrchat.LoginAsync();
+Console.WriteLine($"Logged in as {user.DisplayName}!");
+```
+
+The builder is quite flexible and will let you customize as you see fit.
+
+## Authentication
+
+### Basic Authentication
+
+The most basic way to authenticate is with a username and password:
+
+```cs
+IVRChat vrchat = new VRChatClientBuilder()
+    .WithUsername("username")
+    .WithPassword("password")
+    .WithApplication("APP_NAME", "1.0.0", "CONTACT_EMAIL")
+    .Build();
+
+var user = await vrchat.LoginAsync();
+```
+
+### Two-Factor Authentication
+
+For accounts with 2FA enabled, you can provide a TOTP secret for seamless login:
+
+```cs
+IVRChat vrchat = new VRChatClientBuilder()
+    .WithUsername("username")
+    .WithPassword("password")
+    .WithTwoFactorSecret("twoFactorSecret")
+    .WithApplication("APP_NAME", "1.0.0", "CONTACT_EMAIL")
+    .Build();
+
+var user = await vrchat.LoginAsync();
+```
+
+<Callout type="info" title="Recommended">
+It's recommended to set up 2FA on your account with a TOTP secret for seamless automated login.
+</Callout>
+
+### Authentication with Cookies
+
+You can set authentication cookies yourself by attaching them during the client building process:
+
+```cs
+IVRChat vrchat = new VRChatClientBuilder()
+    .WithUsername("username")
+    .WithPassword("password")
+    .WithTwoFactorSecret("twoFactorSecret") 
+    .WithApplication("APP_NAME", "1.0.0", "CONTACT_EMAIL")
+    .WithAuthCookie("auth cookie", "twoFactorAuth cookie")
+    .Build();
+```
+
+## Working with Cookies
+
+### Getting Cookies
+
+You can fetch the cookies that the API client has using the `IVRChat.GetCookies()` method:
+
+```cs
+var cookies = vrchat.GetCookies(); // List<Cookie>
+```
+
+This is useful for storing authentication state and reusing it later without re-authenticating.
+
+## Dependency Injection
+
+Working with Microsoft DI is easy. After installing the DI package `VRChat.API.Extensions.Hosting`, you can easily attach it to your .NET DI Host, including ASP.NET Core, .NET Aspire, and Discord.Net.
+
+### Fluent Builder
+
+```cs
+// Assuming you have a IServiceCollection services defined somewhere
+services.AddVRChat(builder => builder.WithUsername("username"));
+```
+
+### Named Clients
+
+```cs
+services.AddVRChat("WorldsClient", builder => builder.WithUsername("username"));
+```
+
+### Loading from IConfiguration
+
+Supports environment variables, configuration files, and user secrets:
+
+```cs
+services.AddVRChat(builder.Configuration.GetSection("VRChat"));
+```
+
+To see the available options for loading from an `IConfiguration`, see the [VRChatOptions.cs](https://github.com/vrchatapi/vrchatapi-csharp/blob/main/VRChat.API.Extensions.Hosting/VRChatOptions.cs) file.
+
+### Working with Named Clients
+
+Instead of requesting an `IVRChat` from services, you will request an `IVRChatClientFactory`. Unnamed clients will have a default name of `vrc_default` and registering multiple will overwrite the previous one.
+
+```cs
+public class MyController : Controller
+{
+    [HttpGet("/worlds/active")]
+    public async Task<IActionResult> GetActiveWorldsAsync([FromServices] IVRChatClientFactory factory)
+    {
+        var vrchat = factory.CreateClient("WorldsClient");
+        var worlds = await vrchat.Worlds.GetActiveWorldsAsync();
+        return Ok(worlds);
+    }
+}
+```
+
+## Example Projects
+
+The SDK includes several example projects to help you get started:
+
+- **Console app (login)**: See [VRChat.API.Examples.Console](https://github.com/vrchatapi/vrchatapi-csharp/tree/main/examples/VRChat.API.Examples.Console/)
+- **ASP.NET Core (dependency injection)**: See [VRChat.API.Examples.AspNetCore](https://github.com/vrchatapi/vrchatapi-csharp/tree/main/examples/VRChat.API.Examples.AspNetCore/)
+
+## Working with the Generated API
+
+The following example showcases how you can work with the raw generated library yourself. This is not the recommended way but can be used for very specific use cases.
+
+<Callout type="warn" title="Advanced Usage">
+This approach gives you direct access to the generated API client, but requires more manual configuration and error handling.
+</Callout>
+
+```csharp
+using System;
+using VRChat.API.Api;
+using VRChat.API.Client;
+using VRChat.API.Model;
+
+// Create a configuration for us to log in
+Configuration config = new Configuration();
+config.Username = "Username";
+config.Password = "Password";
+
+// We have to identify ourselves according to the VRChat TOS
+// We can't use emails here because HTTP header parser complains
+config.UserAgent = "ExampleProgram/0.0.1 mydiscordusername"; 
+
+// Create a client to hold all our cookies
+ApiClient client = new ApiClient();
+
+// Create an instance of the auth api so we can verify and log in
+AuthenticationApi authApi = new AuthenticationApi(client, client, config);
+
+// We also need to create instances of the other APIs we'll need
+UsersApi userApi = new UsersApi(client, client, config);
+WorldsApi worldApi = new WorldsApi(client, client, config);
+
+try
+{
+    // Our first request we get the ApiResponse instead of just the user object,
+    // so we can see what the API expects from us
+    ApiResponse<CurrentUser> currentUserResp = authApi.GetCurrentUserWithHttpInfo();
+    
+    if(currentUserResp.Data.RequiresTwoFactorAuth?.Count > 0)
+    {
+        if (currentUserResp.Data.RequiresTwoFactorAuth.Contains("emailOtp")) 
+        {
+            // If the API wants us to send an Email OTP code
+            authApi.Verify2FAEmailCode(new TwoFactorEmailCode("123456"));
+        }
+        else if(currentUserResp.Data.RequiresTwoFactorAuth.Contains("totp"))
+        {
+            // To use a recovery code:
+            // authApi.VerifyRecoveryCode(new TwoFactorAuthCode("12345678"));
+            
+            authApi.Verify2FA(new TwoFactorAuthCode("123456"));
+        }
+    }
+
+    // We can now get our CurrentUser
+    CurrentUser currentUser = authApi.GetCurrentUser();
+    Console.WriteLine("Logged in as {0}", currentUser.DisplayName);
+
+    User user = userApi.GetUser("usr_c1644b5b-3ca4-45b4-97c6-a2a0de70d469");
+    Console.WriteLine("Found user {0}, joined {1}", user.DisplayName, user.DateJoined);
+
+    World world = worldApi.GetWorld("wrld_ba913a96-fac4-4048-a062-9aa5db092812");
+    Console.WriteLine("Found world {0}, visits: {1}", world.Name, world.Visits);
+} 
+catch (ApiException ex)
+{
+    // Catch any exceptions and write to console
+    Console.WriteLine("Exception when calling API: {0}", ex.Message);
+    Console.WriteLine("Status Code: {0}", ex.ErrorCode);
+    Console.WriteLine(ex.ToString());
+}
+```
+
+### Cookies with Generated API
+
+Cookies can be displayed after logging in using:
+
+```csharp
+ApiClient.CookieContainer.GetAllCookies()
+    .ToList()
+    .ForEach(x => Console.WriteLine($"{x.Name}={x.Value}"));
+```
+
+And they can be used by editing the config at the start of your program like this:
+
+```csharp
+config.DefaultHeaders.Add("Cookie", 
+    "auth=[AUTH_COOKIE_HERE]; twoFactorAuth=[TWO_FACTOR_AUTH_COOKIE_HERE]");
+```
+
+## Documentation
+
+For detailed API documentation, see the [docs](https://github.com/vrchatapi/vrchatapi-csharp/tree/main/docs/) directory in the repository.
+
+## Contributing
+
+Contributions are welcome, but do not add features that should be handled by the OpenAPI specification.
+
+Join the [Discord server](https://discord.gg/Ge2APMhPfD) to get in touch with us.
+
+<Callout>
+  Want to contribute to this page? [Edit it on GitHub](https://github.com/vrchatapi/vrchat.community/tree/main/content/docs/(sdks)/dotnet.mdx)!
+</Callout>
