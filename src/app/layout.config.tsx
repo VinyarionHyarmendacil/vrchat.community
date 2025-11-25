@@ -21,6 +21,10 @@ export const baseOptions: BaseLayoutProps = {
 	},
 	githubUrl: "https://github.com/vrchatapi",
 	links: [
+    {
+      text: "Metrics",
+			url: "https://metrics.vrchat.community",
+    },
 		{
 			text: "SDKs",
 			type: "menu",
