@@ -1,7 +1,8 @@
 {
+	"defaultOpen": true,
 	"pages": [
-		"[User](/tags/user)",
-		"[World](/tags/world)",
-		"[Group](/tags/group)"
+		"[User][User](/tags/user)",
+		"[Globe][World](/tags/world)",
+		"[LandPlot][Group](/tags/group)"
 	]
 }

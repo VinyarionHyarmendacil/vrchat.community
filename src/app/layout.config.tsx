@@ -1,5 +1,7 @@
-import { SiDiscord } from "@icons-pack/react-simple-icons";
+import { SiDiscord, SiTypescript } from "@icons-pack/react-simple-icons";
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
+
+import { sdks } from "@/sdks";
 
 /**
  * Shared layout configurations
@@ -19,13 +21,22 @@ export const baseOptions: BaseLayoutProps = {
 	},
 	githubUrl: "https://github.com/vrchatapi",
 	links: [
-		{
-			text: "VRC Metrics",
+    {
+      text: "Metrics",
 			url: "https://metrics.vrchat.community",
+    },
+		{
+			text: "SDKs",
+			type: "menu",
+			items: sdks.map(({ name, documentation, icon }) => ({
+				text: name,
+				url: documentation,
+				icon,
+			}))
 		},
 		{
 			text: "API Reference",
-			url: "/openapi"
+			url: "/reference/get-current-user"
 		},
 		{
 			icon: <SiDiscord />,

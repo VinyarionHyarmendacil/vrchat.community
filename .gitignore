@@ -27,4 +27,4 @@ yarn-error.log*
 .vercel
 next-env.d.ts
 
-content/docs/spec/(generated)/**/*.mdx
+content/docs/reference/(generated)/**/*.mdx

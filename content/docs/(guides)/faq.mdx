@@ -1,15 +1,19 @@
 ---
-title: Frequently Asked Questions
-description: Common questions and answers about the VRChat API
+title: Frequently asked questions
+description: Common questions and answers about the VRChat API, including authentication, rate limits, unofficial status, and best practices for developers building VRChat integrations.
 icon: Info
 ---
 
-## What should I do if I think I've found a bug in any of the libraries?
+## What should I do if I think I've found a bug in any of the libraries? [#bugs]
 If the issue pertains to an endpoint that has been changed in any way, such as incorrect types or a missing endpoint, please create an issue on the [specification repository](https://github.com/vrchatapi/specification/issues/new).
 
 For language-specific issues, kindly create an issue on the relevant SDK repository. However, it's worth noting that libraries are generated from the specification, and therefore **most issues need to be resolved in the specification itself**.
 
-## I found an exploit or vulnerability!
+<Card href="/contributing" title="Get involved in fixing issues">
+Found something that needs fixing? Join the community effort to improve the VRChat API documentation by fixing bugs, adding endpoints, or improving examples.
+</Card>
+
+## I found an exploit or vulnerability! [#vulnerabilities]
 If the exploit is in VRChat's scope, and not handled by us, please adhere to their responsible disclosure policy and **do not discuss it in public channels** or forums.
 
 Report it on VRChat's [disclosure form](https://help.vrchat.com/hc/en-us/requests/new?ticket_form_id=1500001130621) page.
@@ -27,11 +31,21 @@ The following is a copy of [VRChat's responsible disclosure policy](https://disc
 > * all research was helpful and conducted in good faith
 > * you are respecting our Terms of Service
 
-## I'm getting rate limited, what does this mean? ``429 Too many requests``
-You are making requests too quickly.
+## I'm getting rate limited, what does this mean? ``429 Too many requests`` [#rate-limiting]
 
-**Do not submit repeated, un-metered requests.**
+Rate limiting happens when you're making requests too quickly to VRChat's API. The `429 Too Many Requests` response is VRChat's way of telling you to slow down and give their servers a breather.
 
-* Cache data when appropriate, especially for data that doesn't change often.
-* Handle standard HTTP error codes appropriately. If you get a 429, do not keep knocking, or the door will knock back.
-* Rate limit and implement some type of back-off for handling errors.
+<Callout type="warning">
+Rate limits can happen at any time and must not be treated as consistent or predictable. You should always be prepared to receive a 429 response, regardless of how many requests you think you've made.
+</Callout>
+
+**The golden rule: Do not submit repeated, un-metered requests.**
+
+Here's how to handle this properly:
+
+* **Always implement exponential backoff** - This is non-negotiable. Start with a small delay (like 1 second), then double it with each retry (2s, 4s, 8s, etc.). Most HTTP libraries have built-in support for this, or you must implement it yourself.
+* **Cache aggressively** - Save data that rarely changes (user profiles, world details, etc.) and reuse it rather than making the same API calls over and over. Your app will be faster and more responsive too!
+* **Respect HTTP status codes** - When you get a 429, back off immediately. Don't keep hammering the API or you might face longer rate limits or account suspensions.
+* **Expect the unexpected** - Design your application to gracefully handle rate limits as a normal part of operation, not an error condition.
+
+Remember, rate limits exist to keep the API stable for everyone. Working with them, not against them, will give you better performance in the long run.
