@@ -20,6 +20,7 @@ const redirects = {
 	"/tutorials/websocket": "/websocket",
 	"/tutorials/:path*": "/",
 
+	"/csharp": "/dotnet",
 	"/typescript": "/javascript",
 	"/sdk/:path*": "/:path*",
 
