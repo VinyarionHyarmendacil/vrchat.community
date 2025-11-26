@@ -1,4 +1,4 @@
-import { CSharp, Dart, Java, JavaScript, Python, Rust } from "@/lib/icons";
+import { Dotnet, Dart, Java, JavaScript, Python, Rust } from "@/lib/icons";
 
 export const sdks = [
 	{
@@ -16,10 +16,10 @@ export const sdks = [
 		link: "https://pypi.org/project/vrchatapi/",
 	},
 	{
-		name: "C#",
+		name: ".NET",
 		repository: "vrchatapi-csharp",
-		icon: <CSharp />,
-		documentation: "/csharp",
+		icon: <Dotnet />,
+		documentation: "/dotnet",
 		link: "https://www.nuget.org/packages/VRChat.API",
 	},
 	{

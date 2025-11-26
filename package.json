@@ -3,8 +3,8 @@
 	"version": "0.0.0",
 	"private": true,
 	"scripts": {
-		"build": "rm ./content/docs/openapi/\\(generated\\)/**/*.mdx -rf && node scripts/generate-docs.mjs && next build",
-		"dev": "rm ./content/docs/openapi/\\(generated\\)/**/*.mdx -rf && node scripts/generate-docs.mjs && next dev --turbo",
+		"build": "rimraf \"./content/docs/openapi/(generated)/\" && node scripts/generate-docs.mjs && next build",
+		"dev": "rimraf \"./content/docs/openapi/(generated)/\" && node scripts/generate-docs.mjs && next dev --turbo",
 		"start": "next start",
 		"postinstall": "fumadocs-mdx"
 	},
@@ -40,6 +40,7 @@
 		"eslint-plugin-react-refresh": "^0.4.24",
 		"openapi-types": "^12.1.3",
 		"postcss": "^8.5.6",
+		"rimraf": "^6.1.2",
 		"tailwindcss": "^4.1.16",
 		"typescript": "^5.9.3"
 	}
