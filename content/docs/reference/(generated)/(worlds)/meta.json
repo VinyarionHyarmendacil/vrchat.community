@@ -1,0 +1,10 @@
+{
+	"icon": "Globe",
+	"defaultOpen": true,
+	"pages": [
+		"search-worlds",
+		"get-world",
+		"get-world-instance",
+		"..."
+	]
+}

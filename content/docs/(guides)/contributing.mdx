@@ -1,0 +1,114 @@
+---
+title: Contributing
+icon: Heart
+description: Help improve the VRChat API documentation through code examples, bug fixes, documentation updates, and community support. Find open issues and join our Discord community.
+---
+
+import { GitFork, MessageCircle, FileText, Code } from 'lucide-react';
+import { File, Folder, Files } from 'fumadocs-ui/components/files';
+import { Steps, Step } from 'fumadocs-ui/components/steps';
+import { GithubInfo } from 'fumadocs-ui/components/github-info';
+
+import { sdks } from "@/sdks"
+
+Thanks for your interest in contributing to the **VRChat API documentation**! The VRChat API serves thousands of developers building applications, tools, and integrations for the VRChat platform.
+
+Your contributions help make this documentation more accurate, comprehensive, and accessible to the entire developer community.
+
+## Getting started
+
+<Cards>
+  <Card
+    href="https://github.com/vrchatapi/specification/issues"
+    title="Browse open issues"
+    icon={<GitFork/>}
+  >
+    Check out open issues on GitHub for things that need to be done - this is a great place to start contributing.
+  </Card>
+  <Card
+    href="/discord"
+    title="Join our Discord"
+    icon={<MessageCircle/>}
+  >
+    Ask questions and discuss contributions with the community in real-time.
+  </Card>
+</Cards>
+
+## Repositories
+
+<Callout type="info">
+The VRChat API project is spread across multiple repositories, each serving a different purpose.
+</Callout>
+
+### Specification repository
+
+<GithubInfo className="not-prose" owner="vrchatapi" repo="specification" />
+
+The main [specification repository](https://github.com/vrchatapi/specification) contains the OpenAPI specification that defines the VRChat API. This is where most contributions happen, from documenting newly discovered endpoints to refining response schemas that don't quite match the actual API responses.
+
+Common contributions include adding missing endpoints, updating response models when fields are incorrect or missing, improving parameter descriptions, and adding practical examples.f
+
+The related [specification-test repository](https://github.com/vrchatapi/specification-test) contains automated tests that run against VRChat's live API to validate the accuracy and completeness of the OpenAPI specification.
+
+<GithubInfo className="not-prose" owner="vrchatapi" repo="specification-test" />
+
+### Language-specific SDK repositories
+Each programming language has its own repository with generated SDKs based on the OpenAPI specification. These are automatically generated from the OpenAPI specification and provide type-safe API clients for different programming languages.
+
+<div className="not-prose grid grid-cols-2 gap-1">
+{sdks.map(({ repository }) => (
+  <GithubInfo key={repository} owner="vrchatapi" repo={repository} />
+))}
+</div>
+
+### Documentation site
+This documentation site has its own repository for guides, tutorials, and website improvements.
+
+<GithubInfo className="not-prose" owner="vrchatapi" repo="vrchat.community" />
+
+## Ways to contribute
+
+<Cards>
+  <Card
+    title="Documentation improvements"
+    icon={<FileText/>}
+  >
+    Fix typos, grammar, or unclear explanations. Add missing information or examples. Improve existing guides and tutorials. Update outdated information.
+  </Card>
+  <Card
+    title="Code examples"
+    icon={<Code/>}
+  >
+    Add practical code examples for different programming languages. Improve existing code samples. Create tutorial projects demonstrating API usage.
+  </Card>
+  <Card
+    href="https://github.com/vrchatapi/specification"
+    title="API reference"
+    icon={<GitFork/>}
+  >
+    Report missing or incorrect API endpoint documentation. Suggest improvements to parameter descriptions. Contribute to the OpenAPI specification directly.
+  </Card>
+  <Card
+    title="Community support"
+    icon={<MessageCircle/>}
+  >
+    Answer questions on Discord. Help other developers troubleshoot API issues. Share your own experiences and best practices.
+  </Card>
+</Cards>
+
+## Before you start
+
+Before jumping in, it's worth doing a quick check to make sure you're not duplicating work or going against the grain. Take a look at the [open issues](https://github.com/vrchatapi/specification/issues) to see if someone's already tackling what you have in mind. 
+
+If you're planning something bigger than a small fix, hop into our [Discord](/discord) first - the community is pretty active and can save you time by pointing you in the right direction or letting you know about any quirks you should be aware of.
+
+It's also helpful to browse through recent pull requests to get a feel for what kinds of changes are being accepted and how people structure their contributions.
+
+## Need help?
+
+Don't hesitate to reach out if you're unsure about anything:
+
+- **Discord**: Join our [Discord server](/discord) for real-time help and discussion
+- **GitHub Issues**: Ask questions directly on relevant issues
+
+We appreciate all contributions, no matter how small. Every improvement helps make the VRChat API more accessible to developers!

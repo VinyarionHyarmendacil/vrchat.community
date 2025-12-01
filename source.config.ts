@@ -25,6 +25,7 @@ export const docs = defineDocs({
 });
 
 export default defineConfig({
+	lastModifiedTime: "git",
 	mdxOptions: {
 		remarkPlugins: [
 			[remarkInstall, { persist: { id: "remark-install" } } satisfies RemarkInstallOptions],

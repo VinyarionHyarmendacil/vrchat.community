@@ -1,4 +1,4 @@
-export * from "./csharp";
+export * from "./dotnet";
 export * from "./dart";
 export * from "./java";
 export * from "./javascript";
