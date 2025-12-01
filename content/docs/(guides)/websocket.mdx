@@ -441,6 +441,19 @@ This event is sent when the user adds or removes profile images etc.
 ```
 
 
+#### `economy-update`
+This event is sent when the user has interacted with the economy, e.g., making a purchase.
+
+```json
+{
+	"type": "economy-update",
+	"content": {
+		"dirtyPurchases": <boolean> // Whether there are new purchases
+	}
+}
+```
+
+
 #### `modified-image-update`
 This event is sent when an image file is modified.
 
