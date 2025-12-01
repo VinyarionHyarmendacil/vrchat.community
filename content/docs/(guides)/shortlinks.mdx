@@ -1,0 +1,30 @@
+---
+title: Short Links
+icon: Files
+---
+
+VRChat has several ways users can share links to instances, users, and groups.
+Canonically, the URLs that many people will use are those they see in their browser, starting with `https://vrchat.com/home/...`.
+But there are other URLs for users, groups, worlds, and instances that offer brevity.
+Each of the following describes an HTTP `GET` request, where VRChat replies with an HTTP `302 Found` and the target URL in the `Location` header of the response.
+
+### Users
+
+`https://vrch.at/<userId>` redirects to `https://vrchat.com/home/user/<userId>`
+
+### Worlds
+
+`https://vrch.at/<worldId>` redirects to `https://vrchat.com/home/world/<worldId>`
+
+### Instances
+
+`https://vrch.at/<shortName>` redirects to `https://vrchat.com/i/<shortName>`
+`https://vrchat.com/i/<shortName>` redirects to `https://vrchat.com/home/launch?worldId=<worldId>&instanceId=<instanceId>&shortName=<shortName>`
+
+### Groups
+
+`https://vrc.group/<groupCodeAndDisc>` redirects to `https://vrchat.com/api/1/groups/redirect/<groupCodeAndDisc>`
+`https://vrchat.com/api/1/groups/redirect/<groupCodeAndDisc>` redirects to `https://vrchat.com/home/group/<groupId>`
+This last one is actually programmatically useful, as it can be used to resolve a group code with discriminator to the group's ID without having to use the 'search groups' API endpoint.
+Ex.: `GET https://vrchat.com/api/1/groups/redirect/VRCHAT.0000` redirects to `https://vrchat.com/home/group/grp_7ccb6ca3-cd36-4dab-9ab1-7bcf08d794e4`
+
