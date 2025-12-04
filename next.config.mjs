@@ -24,7 +24,8 @@ const redirects = {
 	"/typescript": "/javascript",
 	"/sdk/:path*": "/:path*",
 
-	"/specification/openapi.yaml": "/openapi.yaml",
+	"/specification/openapi.:format": "/openapi.:format",
+	"/openapi.:format": "https://github.com/vrchatapi/specification/releases/latest/download/openapi.:format",
 
 	// "/": "/getting-started",
 	"/getting-started": "/",
@@ -52,10 +53,6 @@ const config = {
 		]
 	},
 	rewrites: async () => [
-		{
-			source: "/openapi.yaml",
-			destination: "https://raw.githubusercontent.com/vrchatapi/specification/refs/heads/gh-pages/openapi.yaml",
-		},
 		{
 			source: "/:path*",
 			destination: "/docs/:path*",
