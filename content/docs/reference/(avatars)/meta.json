@@ -1,0 +1,5 @@
+{
+  "icon": "Shirt",
+  "defaultOpen": true,
+  "pages": ["search-avatars", "get-avatar", "get-own-avatar", "select-avatar", "..."]
+}

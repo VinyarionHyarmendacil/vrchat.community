@@ -1,10 +1,10 @@
 {
-	"pages": [
-		"---SDKs---",
-		"[TypeScript][TypeScript](/typescript)",
-		"javascript",
-		"python",
-		"csharp",
-		"..."
-	]
+  "pages": [
+    "---SDKs---",
+    "[TypeScript][TypeScript](/typescript)",
+    "javascript",
+    "python",
+    "csharp",
+    "..."
+  ]
 }

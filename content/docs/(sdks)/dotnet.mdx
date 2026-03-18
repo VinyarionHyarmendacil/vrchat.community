@@ -3,17 +3,10 @@ title: .NET
 fullTitle: VRChat API Library for .NET
 icon: Dotnet
 description: A .NET client to interact with the unofficial VRChat API. Supports all REST calls specified in the VRChat API specification.
+github: vrchatapi/vrchatapi-csharp
+links:
+  - href: https://nuget.org/packages/vrchat.api
 ---
-
-import { GithubInfo } from 'fumadocs-ui/components/github-info';
-
-A .NET client to interact with the unofficial VRChat API. Supports all REST calls specified in https://github.com/vrchatapi/specification.
-
-<GithubInfo className="not-prose" owner="vrchatapi" repo="vrchatapi-csharp" />
-
-<Callout type="info" title="Important">
-Please review the [API guidelines and disclaimers](https://vrchat.community/) on the homepage before using this SDK. The VRChat API is unofficial and usage guidelines apply.
-</Callout>
 
 ## Installation
 
@@ -45,7 +38,7 @@ using VRChat.API.Client;
 IVRChat vrchat = new VRChatClientBuilder() // More options available
     .WithUsername("username")
     .WithPassword("password")
-    .WithTwoFactorSecret("twoFactorSecret") 
+    .WithTwoFactorSecret("twoFactorSecret")
     .WithApplication(name: "Example", version: "1.0.0", contact: "CONTACT_EMAIL")
     .Build();
 
@@ -65,7 +58,7 @@ Console.WriteLine($"Found world {world.Name}, with {world.Visits} visits");
 The builder is quite flexible and will let you customize as you see fit.
 
 <Callout type="info" title="Recommended">
-It's recommended to set up 2FA on your account with a TOTP secret for seamless automated login.
+  It's recommended to set up 2FA on your account with a TOTP secret for seamless automated login.
 </Callout>
 
 ### Authentication with Cookies
@@ -76,7 +69,7 @@ You can set authentication cookies yourself by attaching them during the client 
 IVRChat vrchat = new VRChatClientBuilder()
     .WithUsername("username")
     .WithPassword("password")
-    .WithTwoFactorSecret("twoFactorSecret") 
+    .WithTwoFactorSecret("twoFactorSecret")
     .WithApplication(name: "Example", version: "1.0.0", contact: "CONTACT_EMAIL")
     .WithAuthCookie("auth cookie", "twoFactorAuth cookie")
     .Build();
@@ -192,5 +185,6 @@ Contributions are welcome, but do not add features that should be handled by the
 Join the [Discord server](https://discord.gg/Ge2APMhPfD) to get in touch with us.
 
 <Callout>
-  Want to contribute to this page? [Edit it on GitHub](https://github.com/vrchatapi/vrchat.community/tree/main/content/docs/(sdks)/dotnet.mdx)!
+  Want to contribute to this page? [Edit it on
+  GitHub](https://github.com/vrchatapi/vrchat.community/tree/main/content/docs/(sdks)/dotnet.mdx)!
 </Callout>
