@@ -1,6 +1,9 @@
-import { configure } from "@ariesclark/eslint-config";
+import { defineConfig, globalIgnores } from "eslint/config";
+import nextVitals from "eslint-config-next/core-web-vitals";
 
-export default configure({
-	next: true,
-	tailwind: false,
-});
+const eslintConfig = defineConfig([
+  ...nextVitals,
+  globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts", ".source/**"]),
+]);
+
+export default eslintConfig;

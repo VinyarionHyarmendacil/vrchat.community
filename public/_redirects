@@ -1,0 +1,30 @@
+# https://developers.cloudflare.com/workers/static-assets/redirects
+
+/docs/api /reference
+/docs/* /
+
+# /*.webp /og/:splat/image.webp 200
+
+/openapi/:operation /reference/:operation
+/openapi/:operation/* /reference/:operation/:splat
+
+/contributing/openapi /contributing
+/reference /reference/get-current-user
+
+/tutorials/getting-started /getting-started
+/tutorials/instances /instances
+/tutorials/tags /tags
+/tutorials/contribute-api /contributing
+/tutorials/contribute-website /contributing
+/tutorials/websocket /websocket
+/tutorials/* /
+
+/csharp /dotnet
+/typescript /javascript
+/sdk/* /:splat
+
+/specification/openapi.:format /openapi.:format
+/openapi.:format https://github.com/vrchatapi/specification/releases/latest/download/openapi.:format
+
+/getting-started /
+/discord https://discord.gg/qjZE9C9fkB

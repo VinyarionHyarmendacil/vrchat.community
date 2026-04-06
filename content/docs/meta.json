@@ -4,8 +4,8 @@
     "index",
     "(guides)/faq",
     "(guides)/contributing",
-    "...(sdks)",
     "...(guides)",
+    "...(sdks)",
     "...reference"
   ]
 }

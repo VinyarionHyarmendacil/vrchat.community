@@ -1,7 +1,9 @@
-# api-docs-v2
+# vrchat-community-new3
 
 This is a Next.js application generated with
 [Create Fumadocs](https://github.com/fuma-nama/fumadocs).
+
+It is a Next.js app with [Static Export](https://nextjs.org/docs/app/guides/static-exports) configured.
 
 Run development server:
 
@@ -20,7 +22,7 @@ Open http://localhost:3000 with your browser to see the result.
 In the project, you can see:
 
 - `lib/source.ts`: Code for content source adapter, [`loader()`](https://fumadocs.dev/docs/headless/source-api) provides the interface to access your content.
-- `app/layout.config.tsx`: Shared options for layouts, optional but preferred to keep.
+- `lib/layout.shared.tsx`: Shared options for layouts, optional but preferred to keep.
 
 | Route                     | Description                                            |
 | ------------------------- | ------------------------------------------------------ |
@@ -42,4 +44,4 @@ resources:
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js
   features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-- [Fumadocs](https://fumadocs.vercel.app) - learn about Fumadocs
+- [Fumadocs](https://fumadocs.dev) - learn about Fumadocs

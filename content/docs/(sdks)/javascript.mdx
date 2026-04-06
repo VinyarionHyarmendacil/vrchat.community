@@ -168,7 +168,7 @@ The VRChat.js SDK supports persistent sessions, allowing you to log in once and 
 
 By default, if you don't provide a `keyv` instance, the SDK uses an in-memory store, meaning your session data will be lost on restart. To persist sessions, pass a `keyv` instance when creating your `VRChat` client.
 
-Any [Keyv-compatible adapter](https://npm.im/keyv/#official-storage-adapters) will work—such as [`keyv-file`](https://npm.im/keyv-file), [`@keyv/redis`](https://npm.im/@keyv/redis), or [`@keyv/postgres`](https://npm.im/@keyv/postgres). For this example, we'll use `keyv-file` to store cookies on disk.
+Any [Keyv-compatible adapter](https://npm.im/keyv/#official-storage-adapters) will work—such as [`keyv-file`](https://npm.im/keyv-file), [`keyv-cloudflare`](https://npm.im/keyv-cloudflare), [`@keyv/redis`](https://npm.im/@keyv/redis), or [`@keyv/postgres`](https://npm.im/@keyv/postgres). For this example, we'll use `keyv-file` to store cookies on disk.
 
 Install it with:
 

@@ -1,0 +1,9 @@
+# https://developers.cloudflare.com/workers/static-assets/headers/#custom-headers
+
+# https://opennext.js.org/cloudflare/caching#static-assets-caching
+/_next/static/*
+  cache-control: public, max-age=31536000, immutable
+
+# https://developers.cloudflare.com/workers/static-assets/headers/#prevent-your-workersdev-urls-showing-in-search-results
+https://:version.:subdomain.workers.dev/*
+  x-robots-tag: noindex
