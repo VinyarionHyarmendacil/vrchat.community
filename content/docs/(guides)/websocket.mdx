@@ -4,13 +4,10 @@ icon: Rss
 description: VRChat's Websocket API, also known as "the pipeline", is used receiving updates regarding the API, such as receiving an invite request. The connection is receive-only, meaning that you can only listen for messages. Sending messages is undefined behavior.
 ---
 
-import { TypeTable } from 'fumadocs-ui/components/type-table';
-
-**VRChat's Websocket API**, also known as "the pipeline", is used receiving updates regarding the API, such as receiving an invite request. The connection is **receive-only**, meaning that you can only listen for messages. Sending messages is undefined behavior.
-
 ## Connecting
 
 Connecting to the VRChat webhook server is done via the URL:
+
 ```
 wss://pipeline.vrchat.cloud/?authToken=authcookie_...
 ```
@@ -26,10 +23,11 @@ All notification `content` values will be documented in JSON object form. The "`
 
 ```json
 {
-	"type": "notification",
-	"content": "{\"userId\": \"usr_...\"}"
+  "type": "notification",
+  "content": "{\"userId\": \"usr_...\"}"
 }
 ```
+
 </Callout>
 
 ## Note on Enumerations
@@ -39,103 +37,107 @@ Throughout both APIs, the empty string `""` is returned in places (including the
 In this part of the documentation, the following `":identifier"`s will be used to describe possible enumeration-ish values:
 
 - `":locationString"`
-    - `""` Pseudo-null value
-    - `"offline"` Implies a user currently is not either running the VRChat client or connected to the Pipeline (e.g., browser tab open)
-    - `"traveling"` Indicates a user's client is travelling between instances (e.g., downloading world, synchronizing world state)
-        - Also can be `"traveling:traveling`
-    - `"private"` Indicates a user's location is not visible to the currently logged-in user. (e.g., Ask Me/Do Not Disturb status, Invite/Invite+/Group instance)
-    - *other values* An actual location (see [Instances](/instances))
+  - `""` Pseudo-null value
+  - `"offline"` Implies a user currently is not either running the VRChat client or connected to the Pipeline (e.g., browser tab open)
+  - `"traveling"` Indicates a user's client is travelling between instances (e.g., downloading world, synchronizing world state)
+    - Also can be `"traveling:traveling`
+  - `"private"` Indicates a user's location is not visible to the currently logged-in user. (e.g., Ask Me/Do Not Disturb status, Invite/Invite+/Group instance)
+  - _other values_ An actual location (see [Instances](/instances))
 - `":platformString"`
-    - `""` Pseudo-null value
-    - `"standalonewindows"`
-    - `"android"`
-    - `"web"` User is on a https://vrchat.com/home page
-    - *other values* Some other platform or third-party application (e.g., `"ios"` could be the value for a future build on some Apple devices)
+  - `""` Pseudo-null value
+  - `"standalonewindows"`
+  - `"android"`
+  - `"web"` User is on a https://vrchat.com/home page
+  - _other values_ Some other platform or third-party application (e.g., `"ios"` could be the value for a future build on some Apple devices)
 - `":contentRefreshContentTypeEnum"`
-    - `"gallery"`
-    - `"icon"`
-    - `"emoji"`
-    - `"print"`
-    - `"prints"` is also a value observed, but this never has an id attached
-    - `"sticker"`
-    - `"inventory"` appears to mirror other 
-    - `"avatar"`
-    - `"world"`
-    - *other values* Some other user-uploaded content
+  - `"gallery"`
+  - `"icon"`
+  - `"emoji"`
+  - `"print"`
+  - `"prints"` is also a value observed, but this never has an id attached
+  - `"sticker"`
+  - `"inventory"` appears to mirror other
+  - `"avatar"`
+  - `"world"`
+  - _other values_ Some other user-uploaded content
 - `":contentRefreshActionTypeEnum"`
-    - `"created"`
-    - `"deleted"`
-    - `"add"` \*
-    - `"delete"` \*
-    - *other values* Not expected<br/>
-      \* *only observed with* `"inventory"` *content type*
+  - `"created"`
+  - `"deleted"`
+  - `"add"` \*
+  - `"delete"` \*
+  - _other values_ Not expected<br/> \* _only observed with_ `"inventory"` _content type_
 - `":inventoryType"`
-    - `"sticker"`
-    - `"emoji"`
-    - `"bundle"`
-    - `"prop"`
-    - *other values* Some other user-uploaded or creator economy content
+  - `"sticker"`
+  - `"emoji"`
+  - `"bundle"`
+  - `"prop"`
+  - _other values_ Some other user-uploaded or creator economy content
 
 ## Events
 
 ### Notification Events
 
 #### `notification`
+
 This event carries a Notification object, and is used by Invites, Friend Requests and other in-game notifications.
 
 See the [Notification API](/reference/get-notifications) for the `content` structure.
 
 ```json
 {
-	"type": "notification",
-	"content": {
-		// Notification object
-	}
+  "type": "notification",
+  "content": {
+    // Notification object
+  }
 }
 ```
 
 #### `response-notification`
+
 This event is used to respond to a previously sent event.
 It carries an ID of the response notification `responseId`, whereby the data is required to be fetched from the API.
 It also carries `notificationId` to indicate which notification this is a response to.
 
 ```json
 {
-	"type": "response-notification",
-	"content": {
-		"notificationId": ":notificationId", // not_00000000-0000-0000-000000000000
-		"receiverId": ":userId", // usr_00000000-0000-0000-000000000000
-		"responseId": ":notificationId", // not_00000000-0000-0000-000000000000
-	}
+  "type": "response-notification",
+  "content": {
+    "notificationId": ":notificationId", // not_00000000-0000-0000-000000000000
+    "receiverId": ":userId", // usr_00000000-0000-0000-000000000000
+    "responseId": ":notificationId" // not_00000000-0000-0000-000000000000
+  }
 }
 ```
 
 #### `see-notification`
+
 This event is sent when the client should mark a specific notification as seen.
 
 ```json
 {
-	"type": "see-notification",
-	"content": ":notificationId" // The ID of the notification to mark as seen.
+  "type": "see-notification",
+  "content": ":notificationId" // The ID of the notification to mark as seen.
 }
 ```
 
 #### `hide-notification`
+
 This event is sent when the client should hide a notification.
 
 ```json
 {
-	"type": "hide-notification",
-	"content": ":notificationId" // The ID of the notification to hide.
+  "type": "hide-notification",
+  "content": ":notificationId" // The ID of the notification to hide.
 }
 ```
 
 #### `clear-notification`
+
 This event is sent when the client should clear **all** notifications.
 
 ```json
 {
-	"type": "clear-notification"
+  "type": "clear-notification"
 }
 ```
 
@@ -144,6 +146,7 @@ This event is sent when the client should clear **all** notifications.
 The `version` property of the `content` of these events all currently have the value `2`.
 
 #### `notification-v2`
+
 This event carries a NotificationV2 object.
 
 ```json
@@ -188,33 +191,33 @@ This event carries a NotificationV2 object.
 ```
 
 #### `notification-v2-update`
+
 This event is sent when the client should update a notification, overwriting at least one property.
 
 ```json
 {
-	"type": "notification-v2-update",
-	"content": {
-		"id":  ":notificationId",
-		"version": 2,
-		"updates": {
-			// These properties are to be overwrite the properties found in the content of a `notification-v2` event
-		}
-	}
+  "type": "notification-v2-update",
+  "content": {
+    "id": ":notificationId",
+    "version": 2,
+    "updates": {
+      // These properties are to be overwrite the properties found in the content of a `notification-v2` event
+    }
+  }
 }
 ```
 
 #### `notification-v2-delete`
+
 This event is sent when the client should delete one or more notifications.
 
 ```json
 {
-	"type": "notification-v2-delete",
-	"content": {
-		"ids": [
-			":notificationId"
-		],
-		"version": 2
-	}
+  "type": "notification-v2-delete",
+  "content": {
+    "ids": [":notificationId"],
+    "version": 2
+  }
 }
 ```
 
@@ -223,35 +226,38 @@ This event is sent when the client should delete one or more notifications.
 ### Friend Events
 
 #### `friend-add`
+
 This event is sent when the user has either accepted a friend request, or has had one of their friend requests accepted.
 
 Refer to the [User API](/reference/get-user) for the `user` object structure.
 
 ```json
 {
-	"type": "friend-add",
-	"content": {
-		"userId": ":userId", // usr_00000000-0000-0000-000000000000
-		"user": {
-			// User object
-		}
-	}
+  "type": "friend-add",
+  "content": {
+    "userId": ":userId", // usr_00000000-0000-0000-000000000000
+    "user": {
+      // User object
+    }
+  }
 }
 ```
 
 #### `friend-delete`
+
 This event is sent when the user has either been removed as a friend, or has removed someone else as a friend.
 
 ```json
 {
-	"type": "friend-delete",
-	"content": {
-		"userId": ":userId"
-	}
+  "type": "friend-delete",
+  "content": {
+    "userId": ":userId"
+  }
 }
 ```
 
 #### `friend-online`
+
 This event is sent when one of the user's friends has gone online in-game. Note that the `world` field will be an empty object when the friend is on orange/red, or is in a private world.
 
 The `user` field follows the [User API](/reference/get-user) schema.
@@ -272,55 +278,58 @@ The `user` field follows the [User API](/reference/get-user) schema.
 ```
 
 #### `friend-active`
+
 This event is sent when one of the user's friends is active on the website.
 
 User data matches the [User API](/reference/get-user) response format.
 
 ```json
 {
-	"type": "friend-active",
-	"content": {
-		"userid": ":userId",
-		"platform": ":platformString", // Appears only to be "web" from these events
-		"user": {
-			// User object
-		}
-	}
+  "type": "friend-active",
+  "content": {
+    "userid": ":userId",
+    "platform": ":platformString", // Appears only to be "web" from these events
+    "user": {
+      // User object
+    }
+  }
 }
 ```
 
 #### `friend-offline`
+
 This event is sent when one of the user's friends has gone offline.
 
 ```json
 {
-	"type": "friend-offline",
-	"content": {
-		"userId": ":userId",
-		"platform": ":platformString", // Appears only to be empty "" from these events
-	}
+  "type": "friend-offline",
+  "content": {
+    "userId": ":userId",
+    "platform": ":platformString" // Appears only to be empty "" from these events
+  }
 }
 ```
 
 #### `friend-update`
+
 This event is sent when something about one of the user's friends profile has changed.
 
 Profile information is structured according to the [User API](/reference/get-user).
 
 ```json
 {
-	"type": "friend-update",
-	"content": {
-		"userId": ":userId",
-		"user": {
-			// User object
-		}
-	}
+  "type": "friend-update",
+  "content": {
+    "userId": ":userId",
+    "user": {
+      // User object
+    }
+  }
 }
 ```
 
-
 #### `friend-location`
+
 This event is sent when one of the user's friends has changed instances. Note that the `worldId` field will be `"private"` when the friend is on orange/red, or is in a private world.
 
 User details are provided in the same format as the [User API](/reference/get-user).
@@ -348,100 +357,99 @@ User details are provided in the same format as the [User API](/reference/get-us
 User events are relating to the current user logged in.
 
 #### `user-update`
+
 This event is sent when something regarding the user has been updated. Note that the `user` object is **not** a LimitedUser object, even though it has similarities. It's missing `developerType`, `friendKey`, `isFriend`, `last_platform` and `location`. It also has an extra `currentAvatar` field.
 
 ```json
 {
-	"type": "user-update",
-	"content": {
-		"userId": ":userId",
-		"user": {
-			"bio": ":bioString",
-			"currentAvatar": ":avatarId",
-			"currentAvatarImageUrl": ":assetUrl",
-			"currentAvatarThumbnailImageUrl": ":assetUrl",
-			"displayName": ":displayName",
-			"fallbackAvatar": ":avatarId",
-			"id": ":userId",
-			"profilePicOverride": ":assetUrl",
-			"status": ":statusEnum",
-			"statusDescription": ":statusString",
-			"tags": [
-				":tag"
-			],
-			"userIcon": ":assetUrl",
-			"username": ":username"
-		}
-	}
+  "type": "user-update",
+  "content": {
+    "userId": ":userId",
+    "user": {
+      "bio": ":bioString",
+      "currentAvatar": ":avatarId",
+      "currentAvatarImageUrl": ":assetUrl",
+      "currentAvatarThumbnailImageUrl": ":assetUrl",
+      "displayName": ":displayName",
+      "fallbackAvatar": ":avatarId",
+      "id": ":userId",
+      "profilePicOverride": ":assetUrl",
+      "status": ":statusEnum",
+      "statusDescription": ":statusString",
+      "tags": [":tag"],
+      "userIcon": ":assetUrl",
+      "username": ":username"
+    }
+  }
 }
 ```
 
-
 #### `user-location`
+
 This event is sent when the user has changed instances.
 
 The included user data conforms to the [User API](/reference/get-user) specification.
 
 ```json
 {
-	"type": "user-location",
-	"content": {
-		"userId": ":userId",
-		"user": {
-			// User object
-		},
-		"location": ":locationString",
-		"instance": ":instanceId", // This is locationString without the World ID part.
-		"travelingToLocation": ":locationString"
-	}
+  "type": "user-location",
+  "content": {
+    "userId": ":userId",
+    "user": {
+      // User object
+    },
+    "location": ":locationString",
+    "instance": ":instanceId", // This is locationString without the World ID part.
+    "travelingToLocation": ":locationString"
+  }
 }
 ```
 
-
 #### `user-badge-assigned`
+
 This event is sent when the user obtains a badge, such as for subscribing to VRChat+.
 
 ```json
 {
-	"type": "user-badge-assigned",
-	"content": {
-		"badge": ":badge"
-	}
+  "type": "user-badge-assigned",
+  "content": {
+    "badge": ":badge"
+  }
 }
 ```
 
-
 #### `user-badge-unassigned`
+
 This event is sent when the user loses a badge, such a VRChat+ subscription expiring.
 
 ```json
 {
-	"type": "user-badge-unassigned",
-	"content": {
-		"badgeId": ":badgeId"
-	}
+  "type": "user-badge-unassigned",
+  "content": {
+    "badgeId": ":badgeId"
+  }
 }
 ```
 
-
 #### `content-refresh`
+
 This event is sent when the user adds or removes profile images etc.
 
 ```json
 {
-	"type": "content-refresh",
-	"content": {
-		"contentType": ":contentRefreshContentTypeEnum",
-		"fileId": ":id", // Id for the content updated (avatar, world, file, etc.)
-		"itemId": ":inventoryId", // Id for `inventory` item
-		"itemType": ":inventoryType", // Type of `inventory` item
-		"actionType": ":contentRefreshActionTypeEnum"
-	}
+  "type": "content-refresh",
+  "content": {
+    "contentType": ":contentRefreshContentTypeEnum",
+    "fileId": ":id", // Id for the content updated (avatar, world, file, etc.)
+    "itemId": ":inventoryId", // Id for `inventory` item
+    "itemType": ":inventoryType", // Type of `inventory` item
+    "actionType": ":contentRefreshActionTypeEnum"
+  }
 }
 ```
 
-
 #### `economy-update`
+
 This event is sent when the user has interacted with the economy, e.g., making a purchase.
 
 ```json
@@ -453,8 +461,8 @@ This event is sent when the user has interacted with the economy, e.g., making a
 }
 ```
 
-
 #### `modified-image-update`
+
 This event is sent when an image file is modified.
 
 ```json
@@ -469,8 +477,8 @@ This event is sent when an image file is modified.
 }
 ```
 
-
 #### `instance-queue-joined`
+
 This event is sent when the user queues to join an instance.
 
 ```json
@@ -483,17 +491,17 @@ This event is sent when the user queues to join an instance.
 }
 ```
 
-
 #### `instance-queue-ready`
+
 This event is sent when the user is at the front of the queue.
 
 ```json
 {
-	"type": "instance-queue-ready",
-	"content": {
-		"instanceLocation": ":locationString",
-		"expiry": ":dateTimeString" // Time at which priority will be lost
-	}
+  "type": "instance-queue-ready",
+  "content": {
+    "instanceLocation": ":locationString",
+    "expiry": ":dateTimeString" // Time at which priority will be lost
+  }
 }
 ```
 
@@ -502,60 +510,61 @@ This event is sent when the user is at the front of the queue.
 ### Group Events
 
 #### `group-joined`
+
 This event is sent when the user has either joined a group, or has had one of their group join requests accepted.
 
 ```json
 {
-	"type": "group-joined",
-	"content": {
-		"groupId": ":groupId" // grp_00000000-0000-0000-000000000000
-	}
+  "type": "group-joined",
+  "content": {
+    "groupId": ":groupId" // grp_00000000-0000-0000-000000000000
+  }
 }
 ```
 
-
 #### `group-left`
+
 This event is sent when the user has either left a group, or has been removed from a group.
 
 ```json
 {
-	"type": "group-left",
-	"content": {
-		"groupId": ":groupId"
-	}
+  "type": "group-left",
+  "content": {
+    "groupId": ":groupId"
+  }
 }
 ```
 
-
 #### `group-member-updated`
+
 This event is sent when something regarding the user's group membership changes. Note that the optional values in the `member` are as if "fetching a specific user", per the schema description.
 
 Membership details follow the [Groups API](/reference/get-group-member) GroupLimitedMember format.
 
 ```json
 {
-	"type": "group-member-updated",
-	"content": {
-		"member": {
-			// GroupLimitedMember object
-		}
-	}
+  "type": "group-member-updated",
+  "content": {
+    "member": {
+      // GroupLimitedMember object
+    }
+  }
 }
 ```
 
-
 #### `group-role-updated`
+
 This event is sent when something regarding one of the user's group's roles changes.
 
 Role structure matches the GroupRole object from the [Groups API](/reference/get-group-roles).
 
 ```json
 {
-	"type": "group-role-updated",
-	"content": {
-		"role": {
-			// GroupRole object
-		}
-	}
+  "type": "group-role-updated",
+  "content": {
+    "role": {
+      // GroupRole object
+    }
+  }
 }
 ```

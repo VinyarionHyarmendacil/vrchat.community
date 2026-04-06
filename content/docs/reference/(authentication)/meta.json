@@ -1,0 +1,5 @@
+{
+  "icon": "KeyRound",
+  "defaultOpen": true,
+  "pages": ["get-current-user", "logout", "..."]
+}

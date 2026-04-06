@@ -1,0 +1,52 @@
+on:
+  repository_dispatch:
+    types: [release]
+  workflow_dispatch:
+    inputs:
+      url:
+        type: string
+        description: URL (openapi.json)
+  push:
+    branches:
+      - main
+
+name: Build & release
+
+jobs:
+  build_and_release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+          run_install: false
+      
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'pnpm'
+
+      - run: pnpm install
+
+      - if: github.event_name == 'repository_dispatch'
+        run: echo "SPECIFICATION_URL=${{ github.event.client_payload.artifacts['openapi.json'] }}" >> $GITHUB_ENV
+
+      - if: github.event_name == 'workflow_dispatch' && github.event.inputs.url != ''
+        run: echo "SPECIFICATION_URL=${{ github.event.inputs.url }}" >> $GITHUB_ENV
+      
+      - if: env.SPECIFICATION_URL == ''
+        run: echo "SPECIFICATION_URL=https://github.com/vrchatapi/specification/releases/latest/download/openapi.json" >> $GITHUB_ENV
+
+      - run: pnpm build
+        env:
+          SPECIFICATION_URL: ${{ env.SPECIFICATION_URL }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+      - if: github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, 'no_release')
+        run: pnpm wrangler deploy
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

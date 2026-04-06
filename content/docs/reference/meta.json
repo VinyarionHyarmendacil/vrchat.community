@@ -1,7 +1,11 @@
 {
-	"root": true,
-	"pages": [
-		"---API Reference---",
-		"...(generated)"
-	]
+  "pages": [
+    "---API Reference---",
+    "(authentication)",
+    "(worlds)",
+    "(avatars)",
+    "(users)",
+    "...",
+    "(miscellaneous)"
+  ]
 }

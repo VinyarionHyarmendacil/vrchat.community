@@ -1,33 +1,9 @@
-@import 'tailwindcss';
-@import 'fumadocs-ui/css/neutral.css';
-@import 'fumadocs-ui/css/preset.css';
-@import 'fumadocs-openapi/css/preset.css';
+@import "tailwindcss";
+@import "fumadocs-ui/css/neutral.css";
+@import "fumadocs-ui/css/preset.css";
+@import "fumadocs-openapi/css/preset.css";
 @import 'fumadocs-twoslash/twoslash.css';
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-exo2)
-}
-
-h1.font-semibold {
-  font-weight: 700;
-}
-
-* {
-  tab-size: 2;
-}
-
-pre:not(:has(span.line)) {
-  @apply px-3.5;
-}
-
-div:has(> button[aria-label="Copy Text"]) {
-  @apply z-10;
-}
-
-aside {
-  @apply xl:[--fd-sidebar-width:20rem]! 2xl:[--fd-sidebar-width:24rem]!;
-}
-
-main#nd-docs-layout {
-  @apply 2xl:[--fd-toc-width:24rem]!;
+#nd-notebook-layout {
+  @apply md:[--fd-sidebar-width:280px];
 }

@@ -1,47 +1,49 @@
-import { rehypeCodeDefaultOptions } from "fumadocs-core/mdx-plugins";
-import type { RemarkInstallOptions } from "fumadocs-docgen";
-import { remarkInstall } from "fumadocs-docgen";
-import {
-	defineConfig,
-
-	defineDocs,
-	frontmatterSchema,
-	metaSchema,
-} from "fumadocs-mdx/config";
-import { transformerTwoslash } from "fumadocs-twoslash";
-import { createFileSystemTypesCache } from "fumadocs-twoslash/cache-fs";
+import { defineConfig, defineDocs } from "fumadocs-mdx/config";
+import { metaSchema, pageSchema } from "fumadocs-core/source/schema";
 import z from "zod";
+import lastModified from "fumadocs-mdx/plugins/last-modified";
+import { transformerTwoslash } from "fumadocs-twoslash";
+import { rehypeCodeDefaultOptions } from "fumadocs-core/mdx-plugins";
 
-// eslint-disable-next-line unicorn/prevent-abbreviations
+// You can customise Zod schemas for frontmatter and `meta.json` here
+// see https://fumadocs.dev/docs/mdx/collections
 export const docs = defineDocs({
-	docs: {
-		schema: frontmatterSchema.and(z.object({
-			fullTitle: z.string().optional(),
-		})),
-	},
-	meta: {
-		schema: metaSchema,
-	},
+  dir: "content/docs",
+  docs: {
+    schema: pageSchema.extend({
+      preferred_title: z.string().optional(),
+      short_description: z.string().max(160).optional(),
+      github: z.string().optional(),
+      links: z
+        .array(
+          z.object({
+            icon: z.string().optional(),
+            label: z.string().optional(),
+            href: z.url(),
+          }),
+        )
+        .optional(),
+    }),
+    postprocess: {
+      includeProcessedMarkdown: true,
+    },
+  },
+  meta: {
+    schema: metaSchema,
+  },
 });
 
 export default defineConfig({
-	lastModifiedTime: "git",
-	mdxOptions: {
-		remarkPlugins: [
-			[remarkInstall, { persist: { id: "remark-install" } } satisfies RemarkInstallOptions],
-		],
-		rehypeCodeOptions: {
-			langs: ["ts", "js"],
-			themes: {
-				light: "github-light",
-				dark: "github-dark",
-			},
-			transformers: [
-				...(rehypeCodeDefaultOptions.transformers ?? []),
-				transformerTwoslash({
-					typesCache: createFileSystemTypesCache(),
-				}),
-			],
-		},
-	},
+  plugins: [lastModified()],
+  mdxOptions: {
+    rehypeCodeOptions: {
+      lazy: false,
+      themes: {
+        light: "github-light",
+        dark: "github-dark",
+      },
+      transformers: [...(rehypeCodeDefaultOptions.transformers ?? []), transformerTwoslash()],
+      langs: ["js", "jsx", "ts", "tsx", "json", "csharp", "bash"],
+    },
+  },
 });

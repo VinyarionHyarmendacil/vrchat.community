@@ -1,11 +1,11 @@
 {
-	"pages": [
-		"---Introduction---",
-		"index",
-		"(guides)/faq",
-		"(guides)/contributing",
-		"...(sdks)",
-		"...(guides)",
-		"...reference"
-	]
+  "pages": [
+    "---Introduction---",
+    "index",
+    "(guides)/faq",
+    "(guides)/contributing",
+    "...(guides)",
+    "...(sdks)",
+    "...reference"
+  ]
 }

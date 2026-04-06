@@ -4,12 +4,12 @@ icon: Heart
 description: Help improve the VRChat API documentation through code examples, bug fixes, documentation updates, and community support. Find open issues and join our Discord community.
 ---
 
-import { GitFork, MessageCircle, FileText, Code } from 'lucide-react';
-import { File, Folder, Files } from 'fumadocs-ui/components/files';
-import { Steps, Step } from 'fumadocs-ui/components/steps';
-import { GithubInfo } from 'fumadocs-ui/components/github-info';
+import { GitFork, MessageCircle, FileText, Code } from "lucide-react";
+import { File, Folder, Files } from "fumadocs-ui/components/files";
+import { Steps, Step } from "fumadocs-ui/components/steps";
+import { GithubInfo } from "fumadocs-ui/components/github-info";
 
-import { sdks } from "@/sdks"
+import { sdks } from "@/sdks";
 
 Thanks for your interest in contributing to the **VRChat API documentation**! The VRChat API serves thousands of developers building applications, tools, and integrations for the VRChat platform.
 
@@ -21,15 +21,12 @@ Your contributions help make this documentation more accurate, comprehensive, an
   <Card
     href="https://github.com/vrchatapi/specification/issues"
     title="Browse open issues"
-    icon={<GitFork/>}
+    icon={<GitFork />}
   >
-    Check out open issues on GitHub for things that need to be done - this is a great place to start contributing.
+    Check out open issues on GitHub for things that need to be done - this is a great place to start
+    contributing.
   </Card>
-  <Card
-    href="/discord"
-    title="Join our Discord"
-    icon={<MessageCircle/>}
-  >
+  <Card href="/discord" title="Join our Discord" icon={<MessageCircle />}>
     Ask questions and discuss contributions with the community in real-time.
   </Card>
 </Cards>
@@ -37,7 +34,7 @@ Your contributions help make this documentation more accurate, comprehensive, an
 ## Repositories
 
 <Callout type="info">
-The VRChat API project is spread across multiple repositories, each serving a different purpose.
+  The VRChat API project is spread across multiple repositories, each serving a different purpose.
 </Callout>
 
 ### Specification repository
@@ -53,15 +50,17 @@ The related [specification-test repository](https://github.com/vrchatapi/specifi
 <GithubInfo className="not-prose" owner="vrchatapi" repo="specification-test" />
 
 ### Language-specific SDK repositories
+
 Each programming language has its own repository with generated SDKs based on the OpenAPI specification. These are automatically generated from the OpenAPI specification and provide type-safe API clients for different programming languages.
 
 <div className="not-prose grid grid-cols-2 gap-1">
-{sdks.map(({ repository }) => (
-  <GithubInfo key={repository} owner="vrchatapi" repo={repository} />
-))}
+  {sdks.map(({ repository }) => (
+    <GithubInfo key={repository} owner="vrchatapi" repo={repository} />
+  ))}
 </div>
 
 ### Documentation site
+
 This documentation site has its own repository for guides, tutorials, and website improvements.
 
 <GithubInfo className="not-prose" owner="vrchatapi" repo="vrchat.community" />
@@ -69,36 +68,27 @@ This documentation site has its own repository for guides, tutorials, and websit
 ## Ways to contribute
 
 <Cards>
-  <Card
-    title="Documentation improvements"
-    icon={<FileText/>}
-  >
-    Fix typos, grammar, or unclear explanations. Add missing information or examples. Improve existing guides and tutorials. Update outdated information.
+  <Card title="Documentation improvements" icon={<FileText />}>
+    Fix typos, grammar, or unclear explanations. Add missing information or examples. Improve
+    existing guides and tutorials. Update outdated information.
   </Card>
-  <Card
-    title="Code examples"
-    icon={<Code/>}
-  >
-    Add practical code examples for different programming languages. Improve existing code samples. Create tutorial projects demonstrating API usage.
+  <Card title="Code examples" icon={<Code />}>
+    Add practical code examples for different programming languages. Improve existing code samples.
+    Create tutorial projects demonstrating API usage.
   </Card>
-  <Card
-    href="https://github.com/vrchatapi/specification"
-    title="API reference"
-    icon={<GitFork/>}
-  >
-    Report missing or incorrect API endpoint documentation. Suggest improvements to parameter descriptions. Contribute to the OpenAPI specification directly.
+  <Card href="https://github.com/vrchatapi/specification" title="API reference" icon={<GitFork />}>
+    Report missing or incorrect API endpoint documentation. Suggest improvements to parameter
+    descriptions. Contribute to the OpenAPI specification directly.
   </Card>
-  <Card
-    title="Community support"
-    icon={<MessageCircle/>}
-  >
-    Answer questions on Discord. Help other developers troubleshoot API issues. Share your own experiences and best practices.
+  <Card title="Community support" icon={<MessageCircle />}>
+    Answer questions on Discord. Help other developers troubleshoot API issues. Share your own
+    experiences and best practices.
   </Card>
 </Cards>
 
 ## Before you start
 
-Before jumping in, it's worth doing a quick check to make sure you're not duplicating work or going against the grain. Take a look at the [open issues](https://github.com/vrchatapi/specification/issues) to see if someone's already tackling what you have in mind. 
+Before jumping in, it's worth doing a quick check to make sure you're not duplicating work or going against the grain. Take a look at the [open issues](https://github.com/vrchatapi/specification/issues) to see if someone's already tackling what you have in mind.
 
 If you're planning something bigger than a small fix, hop into our [Discord](/discord) first - the community is pretty active and can save you time by pointing you in the right direction or letting you know about any quirks you should be aware of.
 

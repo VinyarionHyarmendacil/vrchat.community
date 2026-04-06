@@ -1,51 +1,76 @@
-import Link from "fumadocs-core/link";
-import { Banner } from "fumadocs-ui/components/banner";
-import { RootProvider } from "fumadocs-ui/provider";
-import type { Metadata } from "next";
-import { Exo_2, Noto_Sans } from "next/font/google";
-import type { ReactNode } from "react";
-
+import { Inter } from "next/font/google";
+import { Provider } from "@/components/provider";
+import { source } from "@/lib/source";
+import { DocsLayout } from "fumadocs-ui/layouts/notebook";
+import { SiDiscord } from "@icons-pack/react-simple-icons";
+import { sdks } from "@/sdks";
+import { ChartLine } from "lucide-react";
+import Icon from "./icon.svg";
+import { Image } from "fumadocs-core/framework";
 import "./global.css";
+import { githubUrl } from "@/github";
 
-const notoSans = Noto_Sans({
-	subsets: ["latin"],
+const inter = Inter({
+  subsets: ["latin"],
 });
 
-const exo2 = Exo_2({
-	subsets: ["latin"],
-	variable: "--font-exo2",
-});
-
-export const metadata: Metadata = {
-	title: {
-		template: "%s • VRChat API documentation, SDKs, and more for VRChat.",
-		default: "VRChat.community - API documentation, SDKs, and more for VRChat.",
-	},
-	applicationName: "VRChat.community",
-	description: "API documentation, SDKs, and more for VRChat.",
-	openGraph: {
-		type: "website",
-		siteName: "VRChat.community • API documentation, SDKs, and more",
-
-	}
-};
-
-export default function Layout({ children }: { children: ReactNode }) {
-	return (
-		<html suppressHydrationWarning className={`${notoSans.className} ${exo2.variable}`} lang="en">
-			<body className="flex flex-col min-h-screen">
-				<RootProvider>
-					<Banner id="v6-incomplete" variant="rainbow">
-						<span className="prose [font-size:unset] [line-height:unset]">
-							v6 documentation is incomplete,
-							{" "}
-							<Link href="/contributing">want to contribute</Link>
-							?
-						</span>
-					</Banner>
-					{children}
-				</RootProvider>
-			</body>
-		</html>
-	);
+export default function Layout({ children }: LayoutProps<"/">) {
+  return (
+    <html lang="en" className={inter.className} suppressHydrationWarning>
+      <body className="flex flex-col min-h-screen">
+        <Provider>
+          <DocsLayout
+            tree={source.getPageTree()}
+            sidebar={{ prefetch: false }}
+            tabMode="navbar"
+            nav={{
+              mode: "top",
+              title: (
+                <div className="flex gap-2">
+                  <Image
+                    src={Icon}
+                    alt="Icon for VRChat.community"
+                    className="size-9 invert dark:invert-0"
+                  />
+                  <div className="flex flex-col">
+                    <span className="text-sm font-semibold">VRChat.community</span>
+                    <span className="font-normal text-xs line-clamp-1">
+                      API documentation, SDKs, and more
+                    </span>
+                  </div>
+                </div>
+              ),
+            }}
+            githubUrl={githubUrl}
+            links={[
+              {
+                text: "Metrics",
+                icon: <ChartLine />,
+                url: "https://metrics.vrchat.community",
+              },
+              {
+                text: "SDKs",
+                secondary: true,
+                type: "menu",
+                items: sdks.map(({ name, documentation, icon }) => ({
+                  text: name,
+                  url: documentation,
+                  icon,
+                })),
+              },
+              {
+                icon: <SiDiscord />,
+                external: true,
+                text: "Discord",
+                url: "/discord",
+                type: "icon",
+              },
+            ]}
+          >
+            {children}
+          </DocsLayout>
+        </Provider>
+      </body>
+    </html>
+  );
 }
