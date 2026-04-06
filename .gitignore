@@ -4,3 +4,4 @@ node_modules
 out
 .env*
 .wrangler
+worker-configuration.d.ts
