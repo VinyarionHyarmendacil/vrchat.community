@@ -44,8 +44,9 @@ jobs:
         env:
           SPECIFICATION_URL: ${{ env.SPECIFICATION_URL }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
       - if: github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, 'no_release')
-        run: wrangler deploy
+        run: pnpm wrangler deploy
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
