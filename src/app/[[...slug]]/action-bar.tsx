@@ -1,5 +1,5 @@
 import { GitHubContributors } from "@/components/contributors";
-import { githubApiKey, githubUrl } from "@/github";
+import { githubAccessKey, githubUrl } from "@/github";
 import { cn } from "@/lib/cn";
 import { getPageContributors, getPageSource, icon, type source } from "@/lib/source";
 import { Image } from "fumadocs-core/framework";
@@ -62,7 +62,7 @@ export async function ActionBar({ page }: { page: InferPageType<typeof source> }
             className={buttonVariants({ size: "sm", color: "ghost" })}
             owner={contentGithubOrganization}
             repo={contentGithubRepository}
-            token={githubApiKey}
+            token={githubAccessKey}
           />
         )}
       </div>
