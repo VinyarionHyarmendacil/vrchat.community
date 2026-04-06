@@ -7,8 +7,8 @@ type Repositories = Endpoints["GET /orgs/{org}/repos"]["response"]["data"];
 export const githubOrganization = "vrchatapi";
 export const githubRepository = "vrchat.community";
 
-export const githubApiKey = process.env.GITHUB_API_KEY;
-invariant(githubApiKey, "Missing environment variable: GITHUB_API_KEY")
+export const githubAccessKey = process.env.GH_TOKEN;
+if (!githubAccessKey) throw new ReferenceError("Missing environment variable: GH_TOKEN");
 
 export const githubUrl = `https://github.com/${githubOrganization}/${githubRepository}`;
 
@@ -17,7 +17,7 @@ export async function getRepositories(owner: string) {
   const response = await fetch(url, {
     headers: {
       Accept: "application/vnd.github+json",
-      Authorization: `Bearer ${githubApiKey}`
+      Authorization: `Bearer ${githubAccessKey}`
     },
   });
 
@@ -35,7 +35,7 @@ async function getCommits(owner: string, repository: string, pathname?: string) 
   const response = await fetch(url, {
     headers: {
       Accept: "application/vnd.github+json",
-      Authorization: `Bearer ${githubApiKey}`
+      Authorization: `Bearer ${githubAccessKey}`
     },
   });
 
